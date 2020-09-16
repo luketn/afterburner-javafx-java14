@@ -1,33 +1,24 @@
 package com.mycodefu.dashboard;
 
-/*
- * #%L
- * igniter
- * %%
- * Copyright (C) 2013 - 2016 Adam Bien
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
 import com.mycodefu.dashboard.light.LightView;
+
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+import com.mycodefu.dashboard.tables.TablesView;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 import javax.inject.Inject;
 
 /**
@@ -71,8 +62,15 @@ public class DashboardPresenter implements Initializable {
     }
 
     public void launch() {
-        message.setText("Date: " + date + " -> " + prefix + tower.readyToTakeoff() + happyEnding + theVeryEnd
-        );
+        message.setText("Date: " + date + " -> " + prefix + tower.readyToTakeoff() + happyEnding + theVeryEnd);
+
+        TablesView tablesView = new TablesView();
+        Parent root = tablesView.getView();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
+
 
 }

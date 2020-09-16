@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.mycodefu.dashboard.tables.TableRowData?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane id="AnchorPane" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mycodefu.dashboard.tables.TablesPresenter">
+    <children>
+        <SplitPane fx:id="splitPane" dividerPositions="0.2003257328990228, 0.7003257328990228" focusTraversable="true"
+                   prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="-1.0" prefWidth="-1.0">
+                    <children>
+                        <ListView id="methodList" fx:id="ejbsList" prefHeight="398.0" prefWidth="256.0"
+                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                  AnchorPane.topAnchor="0.0"/>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="346.0">
+                    <children>
+                        <TableView fx:id="dataTable" prefWidth="-1.0" tableMenuButtonVisible="true"
+                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn text="Name" prefWidth="100.0">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="name"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn text="Description" prefWidth="150.0">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="description"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                            </columns>
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <TableRowData name="Jacob" description="Bud"/>
+                                    <TableRowData name="Bob" description="Friend"/>
+                                </FXCollections>
+                            </items>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="methods" prefHeight="-1.0" prefWidth="-1.0">
+                    <children>
+                        <Button text="Add Person" onAction="#addPerson"/>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>
