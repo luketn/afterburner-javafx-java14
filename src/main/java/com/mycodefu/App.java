@@ -34,10 +34,6 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- *
- * @author adam-bien.com
- */
 public class App extends Application {
 
     @Override

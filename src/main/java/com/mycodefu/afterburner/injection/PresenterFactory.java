@@ -46,7 +46,7 @@ import java.util.function.Function;
  * </p>
  * <p>
  * You will have to register the an implementation by placing a text file:
- * <code>META-INF/services/com.mycodefu.werekitten.afterburner.injection.PresenterFactory</code>
+ * <code>META-INF/services/com.mycodefu.afterburner.injection.PresenterFactory</code>
  * containing the fully qualified name of the implementation.
  * </p>
  *

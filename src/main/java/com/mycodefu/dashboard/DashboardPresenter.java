@@ -1,33 +1,19 @@
 package com.mycodefu.dashboard;
 
 import com.mycodefu.dashboard.light.LightView;
+import com.mycodefu.dashboard.tables.TablesView;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 
-import java.io.IOException;
+import javax.inject.Inject;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import com.mycodefu.dashboard.tables.TablesView;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import javax.inject.Inject;
-
-import static com.mycodefu.App.setGlobalStylesheetToScene;
 import static com.mycodefu.App.showModalView;
 
-/**
- *
- * @author adam-bien.com
- */
 public class DashboardPresenter implements Initializable {
 
     @FXML

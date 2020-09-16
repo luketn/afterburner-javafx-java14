@@ -8,10 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javax.inject.Inject;
 
-/**
- *
- * @author airhacks.com
- */
 public class LightPresenter implements Initializable {
 
     @FXML

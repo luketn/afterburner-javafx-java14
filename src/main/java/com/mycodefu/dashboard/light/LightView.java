@@ -5,10 +5,6 @@ import java.util.function.Function;
 import com.mycodefu.afterburner.views.FXMLView;
 import javafx.scene.Parent;
 
-/**
- *
- * @author airhacks.com
- */
 public class LightView extends FXMLView {
 
     public LightView(Function<String, Object> injectionContext) {
