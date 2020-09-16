@@ -5,3 +5,8 @@
 .root {    
     -fx-font: 14px "Helvetica";
 }
+
+.button {
+    -fx-background-color: darkslateblue;
+    -fx-text-fill: white;
+}

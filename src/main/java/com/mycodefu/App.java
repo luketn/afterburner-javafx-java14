@@ -26,8 +26,12 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.mycodefu.dashboard.tables.TablesView;
 import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -54,8 +58,7 @@ public class App extends Application {
         DashboardView appView = new DashboardView();
         Scene scene = new Scene(appView.getView());
         stage.setTitle("followme.fx");
-        final String uri = getClass().getResource("app.css").toExternalForm();
-        scene.getStylesheets().add(uri);
+        setGlobalStylesheetToScene(scene);
         stage.setScene(scene);
         stage.show();
     }
@@ -67,5 +70,22 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+
+
+    public static void setGlobalStylesheetToScene(Scene scene) {
+        final String uri = App.class.getResource("app.css").toExternalForm();
+        scene.getStylesheets().add(uri);
+    }
+
+    public static void showModalView(TablesView tablesView) {
+        Parent root = tablesView.getView();
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        setGlobalStylesheetToScene(scene);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 }

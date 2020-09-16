@@ -21,6 +21,9 @@ import javafx.stage.Stage;
 
 import javax.inject.Inject;
 
+import static com.mycodefu.App.setGlobalStylesheetToScene;
+import static com.mycodefu.App.showModalView;
+
 /**
  *
  * @author adam-bien.com
@@ -65,12 +68,6 @@ public class DashboardPresenter implements Initializable {
         message.setText("Date: " + date + " -> " + prefix + tower.readyToTakeoff() + happyEnding + theVeryEnd);
 
         TablesView tablesView = new TablesView();
-        Parent root = tablesView.getView();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
+        showModalView(tablesView);
     }
-
-
 }
