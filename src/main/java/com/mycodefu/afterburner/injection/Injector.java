@@ -9,9 +9,9 @@ package com.mycodefu.afterburner.injection;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,18 +50,9 @@ public class Injector {
 
     public static <T> T instantiatePresenter(Class<T> clazz, Function<String, Object> injectionContext) {
         @SuppressWarnings("unchecked")
-        T presenter = registerExistingAndInject((T) instanceSupplier.apply(clazz));
-        //after the regular, conventional initialization and injection, perform postinjection
-        Field[] fields = clazz.getDeclaredFields();
-        for (final Field field : fields) {
-            if (field.isAnnotationPresent(Inject.class)) {
-                final String fieldName = field.getName();
-                final Object value = injectionContext.apply(fieldName);
-                if (value != null) {
-                    injectIntoField(field, presenter, value);
-                }
-            }
-        }
+        T presenter = (T) instanceSupplier.apply(clazz);
+        applyInjectionContext(clazz, injectionContext, presenter);
+        registerExistingAndInject(presenter);
         return presenter;
     }
 
@@ -98,9 +89,9 @@ public class Injector {
      * @return presenter with injected fields
      */
     public static <T> T registerExistingAndInject(T instance) {
-        T product = injectAndInitialize(instance);
-        presenters.add(product);
-        return product;
+        injectAndInitialize(instance);
+        presenters.add(instance);
+        return instance;
     }
 
     @SuppressWarnings("unchecked")
@@ -138,9 +129,13 @@ public class Injector {
                 String key = field.getName();
                 Object value = configurator.getProperty(clazz, key);
                 LOG.accept("Value returned by configurator is: " + value);
-                if (value == null && isNotPrimitiveOrString(type)) {
+                if (value == null && isNotPrimitiveOrString(type) && fieldIsNull(field, instance) ) {
                     LOG.accept("Field is not a JDK class");
-                    value = instantiateModelOrService(type);
+                    try {
+                        value = instantiateModelOrService(type);
+                    } catch (Exception e) {
+                        value = null;
+                    }
                 }
                 if (value != null) {
                     LOG.accept("Value is a primitive, injecting...");
@@ -152,6 +147,14 @@ public class Injector {
         if (superclass != null) {
             LOG.accept("Injecting members of: " + superclass);
             injectMembers(superclass, instance);
+        }
+    }
+
+    private static boolean fieldIsNull(Field field, Object instance) {
+        try {
+            return field.get(instance) == null;
+        } catch (IllegalAccessException e) {
+            return true;
         }
     }
 
@@ -198,6 +201,20 @@ public class Injector {
         Class<?> superclass = clazz.getSuperclass();
         if (superclass != null) {
             invokeMethodWithAnnotation(superclass, instance, annotationClass);
+        }
+    }
+
+    public static <T> void applyInjectionContext(Class<T> clazz, Function<String, Object> injectionContext, T presenter) {
+        //after the regular, conventional initialization and injection, perform postinjection
+        Field[] fields = clazz.getDeclaredFields();
+        for (final Field field : fields) {
+            if (field.isAnnotationPresent(Inject.class)) {
+                final String fieldName = field.getName();
+                final Object value = injectionContext.apply(fieldName);
+                if (value != null) {
+                    injectIntoField(field, presenter, value);
+                }
+            }
         }
     }
 
