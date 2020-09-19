@@ -5,6 +5,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import com.mycodefu.controls.AutocompleteComboBox?>
 <AnchorPane id="AnchorPane" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.mycodefu.dashboard.tables.TablesPresenter">
     <children>
@@ -47,7 +48,12 @@
                 </AnchorPane>
                 <AnchorPane fx:id="methods" prefHeight="-1.0" prefWidth="-1.0">
                     <children>
-                        <Button text="Add Person" onAction="#addPerson"/>
+                        <VBox>
+                            <children>
+                                <AutocompleteComboBox fx:id="people" editable="true"></AutocompleteComboBox>
+                                <Button text="Add Person" onAction="#addPerson"/>
+                            </children>
+                        </VBox>
                     </children>
                 </AnchorPane>
             </items>
