@@ -5,6 +5,8 @@ open module afterburnerfx {
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires javax.inject;
+	requires javafx.base;
+	requires org.controlsfx.controls;
 
-	exports com.mycodefu;
+	exports com.mycodefu.dashboard.tables to org.controlsfx.controls;
 }

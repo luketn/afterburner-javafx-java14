@@ -1,19 +1,18 @@
 package com.mycodefu.dashboard.tables;
 
-import com.mycodefu.controls.AutocompleteComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
-import javafx.util.StringConverter;
+import javafx.scene.control.TextField;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.ResourceBundle;
-
-import static com.mycodefu.controls.AutocompleteComboBox.createComboBoxWithAutoCompletionSupport;
+import java.util.Set;
 
 public class TablesPresenter implements Initializable {
 
@@ -21,34 +20,37 @@ public class TablesPresenter implements Initializable {
     TableView dataTable;
 
     @FXML
-    AutocompleteComboBox people;
-    @FXML
-    VBox rightControls;
-
-    ComboBox<AutocompleteComboBox.HideableItem<String>> comboBoxWithAutoCompletionSupport;
+    TextField personTextField;
+    AutoCompletionBinding<String> namesAutocompleteBinding;
+    Set<String> names = new HashSet<>(Arrays.asList(new String[]{"Luke", "Bob", "Fred", "Jane", "Amanda", "Smithy", "Nessa", "Brin"}));
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.comboBoxWithAutoCompletionSupport = createComboBoxWithAutoCompletionSupport(Arrays.asList("Luke", "Bob", "Jane"), new StringConverter<AutocompleteComboBox.HideableItem<String>>() {
-            @Override
-            public String toString(AutocompleteComboBox.HideableItem<String> object) {
-                if (object != null) {
-                    return object.getObject();
-                } else {
-                    return null;
+        namesAutocompleteBinding = TextFields.bindAutoCompletion(personTextField, names);
+        personTextField.setOnKeyPressed(event -> {
+            switch(event.getCode()) {
+                case ENTER: {
+                    addPerson(null);
+                    break;
                 }
             }
-
-            @Override
-            public AutocompleteComboBox.HideableItem<String> fromString(String string) {
-                return new AutocompleteComboBox.HideableItem<>(string, this);
-            }
         });
-        comboBoxWithAutoCompletionSupport.setEditable(true);
-        rightControls.getChildren().add(comboBoxWithAutoCompletionSupport);
     }
 
     public void addPerson(ActionEvent actionEvent) {
-        dataTable.getItems().add(new TableRowData(this.comboBoxWithAutoCompletionSupport.getEditor().getText(), "Buddy"));
+        String name = personTextField.getText().trim();
+        if (name.isBlank()) {
+            return;
+        }
+
+        if (!names.contains(name)) {
+            names.add(name);
+            namesAutocompleteBinding.dispose();
+            namesAutocompleteBinding = TextFields.bindAutoCompletion(personTextField, names);
+        }
+        dataTable.getItems().add(new TableRowData(name, "Friend"));
+
+        personTextField.setText("");
+        personTextField.requestFocus();
     }
 }
