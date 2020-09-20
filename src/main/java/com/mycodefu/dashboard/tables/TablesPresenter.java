@@ -30,14 +30,14 @@ public class TablesPresenter implements Initializable {
         personTextField.setOnKeyPressed(event -> {
             switch(event.getCode()) {
                 case ENTER: {
-                    addPerson(null);
+                    addPerson();
                     break;
                 }
             }
         });
     }
 
-    public void addPerson(ActionEvent actionEvent) {
+    public void addPerson() {
         String name = personTextField.getText().trim();
         if (name.isBlank()) {
             return;

@@ -51,7 +51,7 @@
                         <VBox fx:id="rightControls">
                             <children>
                                 <TextField fx:id="personTextField"/>
-                                <Button text="Add Person" onAction="#addPerson"/>
+                                <Button fx:id="addPerson" text="Add Person" onAction="#addPerson"/>
                             </children>
                         </VBox>
                     </children>
