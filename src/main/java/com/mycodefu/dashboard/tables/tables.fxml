@@ -6,27 +6,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.mycodefu.dashboard.tables.TablesPresenter">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.mycodefu.dashboard.tables.TablesPresenter" prefHeight="320" prefWidth="520">
     <children>
-        <SplitPane fx:id="splitPane" dividerPositions="0.2003257328990228, 0.7003257328990228" focusTraversable="true"
-                   prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+        <SplitPane dividerPositions="0.7" focusTraversable="true"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="-1.0" prefWidth="-1.0">
+                <AnchorPane>
                     <children>
-                        <ListView id="methodList" fx:id="ejbsList" prefHeight="398.0" prefWidth="256.0"
-                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                  AnchorPane.topAnchor="0.0"/>
-                    </children>
-                </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="346.0">
-                    <children>
-                        <TableView fx:id="dataTable" prefWidth="-1.0" tableMenuButtonVisible="true"
+                        <TableView fx:id="dataTable"
                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
-                                <TableColumn text="Name" prefWidth="100.0">
+                                <TableColumn text="Name" prefWidth="160.0">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="name"/>
                                     </cellValueFactory>
@@ -46,9 +38,9 @@
                         </TableView>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="methods" prefHeight="-1.0" prefWidth="-1.0">
+                <AnchorPane>
                     <children>
-                        <VBox fx:id="rightControls">
+                        <VBox styleClass="boxSpacing">
                             <children>
                                 <TextField fx:id="personTextField"/>
                                 <Button fx:id="addPerson" text="Add Person" onAction="#addPerson"/>

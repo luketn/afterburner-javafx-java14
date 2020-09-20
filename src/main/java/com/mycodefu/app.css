@@ -1,5 +1,6 @@
 .boxSpacing{
     -fx-padding: 10 10 10 10;
+    -fx-spacing: 10;
 }
 
 .root {    
@@ -9,4 +10,5 @@
 .button {
     -fx-background-color: darkslateblue;
     -fx-text-fill: white;
+    -fx-pref-height: 30;
 }

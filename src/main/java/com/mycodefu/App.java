@@ -52,7 +52,7 @@ public class App extends Application {
 
         System.setProperty("happyEnding", " Enjoy the flight!");
         DashboardView appView = new DashboardView();
-        Scene scene = new Scene(appView.getView());
+        Scene scene = new Scene(appView.getView(), 640, 480);
         stage.setTitle("followme.fx");
         setGlobalStylesheetToScene(scene);
         stage.setScene(scene);
