@@ -40,7 +40,7 @@ class TablesTest extends ApplicationTest {
     }
 
     @Test
-    void should_click_on_button() throws InterruptedException {
+    void add_person() throws InterruptedException {
         TableView<Object> tableView = lookup("#dataTable").queryTableView();
 
         assertEquals(2, tableView.getItems().size());
