@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.mycodefu.dashboard.tables.TablesPresenter" prefHeight="320" prefWidth="520">
+<AnchorPane fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="com.mycodefu.dashboard.tables.TablesPresenter">
     <children>
         <SplitPane dividerPositions="0.7" focusTraversable="true"
                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -18,12 +18,12 @@
                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
-                                <TableColumn text="Name" prefWidth="160.0">
+                                <TableColumn fx:id="nameColumn" text="Name">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="name"/>
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn text="Description" prefWidth="150.0">
+                                <TableColumn fx:id="descriptionColumn" text="Description">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="description"/>
                                     </cellValueFactory>
