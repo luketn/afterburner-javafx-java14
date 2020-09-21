@@ -34,12 +34,13 @@ public class DashboardPresenter implements Initializable {
     @Inject
     private LocalDate date;
 
-    private String theVeryEnd;
+    private String theEnd;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //fetched from dashboard.properties
-        this.theVeryEnd = rb.getString("theEnd");
+        theEnd = rb.getString("theEnd");
+        String dateLabel = rb.getString("date");
+        message.setText(dateLabel + ": " + date + theEnd);
     }
 
     public void createLights() {
@@ -51,8 +52,6 @@ public class DashboardPresenter implements Initializable {
     }
 
     public void launch() {
-        message.setText("Date: " + date + " -> " + prefix + tower.readyToTakeoff() + happyEnding + theVeryEnd);
-
         TablesView tablesView = new TablesView();
         showModalView(tablesView);
     }

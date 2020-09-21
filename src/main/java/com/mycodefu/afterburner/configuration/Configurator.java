@@ -46,6 +46,7 @@ import java.util.function.Function;
  */
 public class Configurator {
 
+    public final static String CONFIGURATION_LOCALE_FILE = "configuration.properties";
     public final static String CONFIGURATION_FILE = "configuration.properties";
 
     private final Properties systemProperties;

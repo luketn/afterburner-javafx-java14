@@ -12,10 +12,11 @@
             </top>
             <bottom>
                 <VBox>
-                    <Label fx:id="message" text="A simplest possible afterburner.fx application" styleClass="boxSpacing"/>
+                    <Label fx:id="message" styleClass="boxSpacing"/>
+                    <Label text="%welcome" styleClass="boxSpacing"/>
                     <HBox styleClass="boxSpacing">
-                        <Button fx:id="launch" onAction="#launch" text="Launch"/>
-                        <Button onAction="#createLights" text="Create 256 Views Asynchronously"/>
+                        <Button fx:id="launch" onAction="#launch" text="%launch"/>
+                        <Button onAction="#createLights" text="%create"/>
                     </HBox>
                 </VBox>
             </bottom>

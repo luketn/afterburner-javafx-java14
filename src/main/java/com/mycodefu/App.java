@@ -24,16 +24,12 @@ public class App extends Application {
         LocalDate date = LocalDate.of(4242, Month.JULY, 21);
         Map<Object, Object> customProperties = new HashMap<>();
         customProperties.put("date", date);
-        /*
-         * any function which accepts an Object as key and returns
-         * and return an Object as result can be used as source.
-         */
         Injector.setConfigurationSource(customProperties::get);
 
         System.setProperty("happyEnding", " Enjoy the flight!");
         DashboardView appView = new DashboardView();
         Scene scene = new Scene(appView.getView(), 640, 480);
-        stage.setTitle("followme.fx");
+        stage.setTitle("Afterburner Java14");
         setGlobalStylesheetToScene(scene);
         stage.setScene(scene);
         stage.show();
