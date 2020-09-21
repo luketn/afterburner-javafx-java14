@@ -2,6 +2,7 @@ package com.mycodefu.dashboard.tables;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
@@ -40,21 +41,23 @@ class TablesTest extends ApplicationTest {
 
     @Test
     void should_click_on_button() throws InterruptedException {
-        assertEquals(2, lookup("#dataTable").queryTableView().getItems().size());
+        TableView<Object> tableView = lookup("#dataTable").queryTableView();
+
+        assertEquals(2, tableView.getItems().size());
 
         TextInputControl personTextField = lookup("#personTextField").queryTextInputControl();
         clickOn(personTextField);
-        write("Luke");
-        assertThat(personTextField.getText()).isEqualTo("Luke");
+        write("Big Nessy");
+        assertThat(personTextField.getText()).isEqualTo("Big Nessy");
 
         moveTo("#addPerson");
         clickOn(MouseButton.PRIMARY);
 
-//        WaitForAsyncUtils.waitForFxEvents();
-        //sleep(5, TimeUnit.SECONDS);
-//TODO: Figure out why this fails - problem with Mac permissions? Already set the Accessibility one
-//        assertEquals(3, lookup("#dataTable").queryTableView().getItems().size());
-//https://github.com/TestFX/TestFX/pull/674
+        assertEquals(3, tableView.getItems().size());
+
+        TableRowData tableRowData = (TableRowData)tableView.getItems().get(2);
+        assertEquals("Big Nessy", tableRowData.getName());
+        assertEquals("Friend", tableRowData.getDescription());
     }
 
 }
