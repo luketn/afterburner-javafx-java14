@@ -1,6 +1,7 @@
 open module afterburnerfx {
 	uses com.mycodefu.afterburner.injection.PresenterFactory;
 
+	requires java.annotation;
 	requires java.desktop;
 	requires javafx.controls;
 	requires javafx.fxml;

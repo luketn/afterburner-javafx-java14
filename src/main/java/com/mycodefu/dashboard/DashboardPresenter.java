@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import java.net.URL;
 import java.time.LocalDate;
@@ -41,6 +43,18 @@ public class DashboardPresenter implements Initializable {
         theEnd = rb.getString("theEnd");
         String dateLabel = rb.getString("date");
         message.setText(dateLabel + ": " + date + theEnd);
+
+        System.out.println("Initialized by JavaFX.");
+    }
+
+    @PostConstruct
+    public void postConstruct(){
+        System.out.println("Dashboard constructed.");
+    }
+
+    @PreDestroy
+    public void preDestroy(){
+        System.out.println("Dashboard about to be destroyed.");
     }
 
     public void createLights() {

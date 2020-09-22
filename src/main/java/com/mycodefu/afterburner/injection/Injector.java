@@ -22,7 +22,6 @@ package com.mycodefu.afterburner.injection;
 
 import com.mycodefu.afterburner.configuration.Configurator;
 
-import javax.inject.Inject;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -32,6 +31,9 @@ import java.security.PrivilegedAction;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 
 /**
  *
@@ -175,10 +177,12 @@ public class Injector {
 
     static void initialize(Object instance) {
         Class<? extends Object> clazz = instance.getClass();
+        invokeMethodWithAnnotation(clazz, instance, PostConstruct.class);
     }
 
     static void destroy(Object instance) {
         Class<? extends Object> clazz = instance.getClass();
+        invokeMethodWithAnnotation(clazz, instance, PreDestroy.class);
     }
 
     static void invokeMethodWithAnnotation(Class<?> clazz, final Object instance, final Class<? extends Annotation> annotationClass) throws IllegalStateException, SecurityException {

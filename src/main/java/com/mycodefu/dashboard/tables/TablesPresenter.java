@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -35,6 +37,18 @@ public class TablesPresenter implements Initializable {
                 }
             }
         });
+
+        System.out.println("Tables initialized by JavaFX.");
+    }
+
+    @PostConstruct
+    public void postConstruct(){
+        System.out.println("Tables constructed.");
+    }
+
+    @PreDestroy
+    public void preDestroy(){
+        System.out.println("Tables about to be destroyed.");
     }
 
     public void addPerson() {
