@@ -1,15 +1,11 @@
 package com.mycodefu.dashboard.tables;
 
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.util.Callback;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
-import com.sun.javafx.binding.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

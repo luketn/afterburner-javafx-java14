@@ -1,33 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  #%L
-  igniter
-  %%
-  Copyright (C) 2013 Adam Bien
-  %%
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-#L%
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycodefu</groupId>
-    <artifactId>afterburn-jfx</artifactId>
+    <artifactId>javafx-15-java-14-template</artifactId>
     <version>1</version>
     <packaging>jar</packaging>
-    <name>afterburn-jfx</name>
-    <url>http://airhacks.com</url>
+    <name>javafx-15-java-14-template</name>
+    <url>https://mycodefu.com</url>
 
     <properties>
         <maven.compiler.target>14</maven.compiler.target>
@@ -139,7 +120,7 @@ limitations under the License.
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeScope>runtime</includeScope>
+<!--                            <includeScope>runtime</includeScope>-->
                             <outputDirectory>${project.build.directory}/release-directory/lib</outputDirectory>
                         </configuration>
                     </execution>
@@ -165,6 +146,7 @@ limitations under the License.
                         --add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls
                         --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
                         --add-opens java.base/java.lang=ALL-UNNAMED
+                        --enable-preview
                     </argLine>
                 </configuration>
             </plugin>

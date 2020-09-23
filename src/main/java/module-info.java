@@ -1,4 +1,4 @@
-open module afterburnerfx {
+open module mycodefujfx14 {
 	uses com.mycodefu.betterfxml.injection.PresenterFactory;
 
 	requires java.annotation;
