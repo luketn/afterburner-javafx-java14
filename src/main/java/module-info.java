@@ -1,5 +1,5 @@
 open module afterburnerfx {
-	uses com.mycodefu.afterburner.injection.PresenterFactory;
+	uses com.mycodefu.betterfxml.injection.PresenterFactory;
 
 	requires java.annotation;
 	requires java.desktop;

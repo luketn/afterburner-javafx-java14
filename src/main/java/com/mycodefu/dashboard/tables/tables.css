@@ -3,10 +3,10 @@
     -fx-pref-height: 320;
 }
 
-#nameColumn {
+TableColumn #name {
     -fx-pref-width: 160;
 }
 
-#descriptionColumn {
+TableColumn #description {
     -fx-pref-width: 150;
 }

@@ -151,6 +151,9 @@ limitations under the License.
                 <version>3.8.0</version>
                 <configuration>
                     <release>14</release>
+                    <source>14</source>
+                    <target>14</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
             <plugin>

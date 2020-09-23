@@ -1,6 +1,6 @@
 package com.mycodefu;
 
-import com.mycodefu.afterburner.injection.Injector;
+import com.mycodefu.betterfxml.injection.Injector;
 import com.mycodefu.dashboard.DashboardView;
 import java.time.LocalDate;
 import java.time.Month;

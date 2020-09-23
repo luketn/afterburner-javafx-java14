@@ -40,7 +40,7 @@ class TablesTest extends ApplicationTest {
     }
 
     @Test
-    void add_person() throws InterruptedException {
+    void add_person() {
         TableView<TableRowData> tableView = lookup("#dataTable").queryTableView();
 
         assertEquals(2, tableView.getItems().size());
@@ -56,8 +56,8 @@ class TablesTest extends ApplicationTest {
         assertEquals(3, tableView.getItems().size());
 
         TableRowData tableRowData = tableView.getItems().get(2);
-        assertEquals("Big Nessy", tableRowData.getName());
-        assertEquals("Friend", tableRowData.getDescription());
+        assertEquals("Big Nessy", tableRowData.name());
+        assertEquals("Friend", tableRowData.description());
     }
 
 }
