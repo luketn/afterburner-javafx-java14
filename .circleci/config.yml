@@ -7,5 +7,5 @@ workflows:
   maven_test:
     jobs:
       - maven/test:
-          executor: 14.0.2
+          executor: cimg/openjdk:14.0.2
 
