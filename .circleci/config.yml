@@ -9,7 +9,7 @@ jobs:
       - run: |
           sudo apt-get update
           sudo apt -y install xvfb
-      - run: xvfb mvn package
+      - run: xvfb-run mvn package
 
 workflows:
   build:
