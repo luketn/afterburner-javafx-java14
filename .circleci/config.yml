@@ -6,10 +6,7 @@ jobs:
       - image: cimg/openjdk:14.0.2
     steps:
       - checkout
-      - run: |
-          sudo apt-get update
-          sudo apt -y install xvfb
-      - run: xvfb-run mvn package
+      - run: mvn package -DskipTests
 
 workflows:
   build:
