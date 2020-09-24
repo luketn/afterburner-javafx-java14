@@ -1,4 +1,4 @@
-package com.mycodefu.betterfxml.injection;
+package com.mycodefu.afterburner.injection;
 
 /*
  * #%L
@@ -20,7 +20,7 @@ package com.mycodefu.betterfxml.injection;
  * #L%
  */
 
-import com.mycodefu.betterfxml.configuration.Configurator;
+import com.mycodefu.afterburner.configuration.Configurator;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

@@ -1,6 +1,6 @@
 package com.mycodefu.dashboard.light;
 
-import com.mycodefu.betterfxml.views.FXMLView;
+import com.mycodefu.afterburner.views.FXMLView;
 
 import java.util.function.Function;
 

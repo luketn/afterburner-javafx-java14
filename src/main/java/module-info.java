@@ -1,5 +1,5 @@
 open module mycodefujfx14 {
-	uses com.mycodefu.betterfxml.injection.PresenterFactory;
+	uses com.mycodefu.afterburner.injection.PresenterFactory;
 
 	requires java.annotation;
 	requires java.desktop;

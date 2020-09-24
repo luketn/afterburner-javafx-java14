@@ -1,4 +1,4 @@
-package com.mycodefu.betterfxml.views;
+package com.mycodefu.afterburner.views;
 
 /*
  * #%L
@@ -20,8 +20,8 @@ package com.mycodefu.betterfxml.views;
  * #L%
  */
 
-import com.mycodefu.betterfxml.injection.Injector;
-import com.mycodefu.betterfxml.injection.PresenterFactory;
+import com.mycodefu.afterburner.injection.Injector;
+import com.mycodefu.afterburner.injection.PresenterFactory;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
