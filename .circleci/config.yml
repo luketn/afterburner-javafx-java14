@@ -5,10 +5,11 @@ jobs:
     docker:
       - image: cimg/openjdk:14.0.2
     steps:
+      - checkout
       - run: |
           sudo apt-get update
           sudo apt -y install xvfb
-      - run: xvfb `mvn package`
+      - run: xvfb mvn package
 
 workflows:
   build:
