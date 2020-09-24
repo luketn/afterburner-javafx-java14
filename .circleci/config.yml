@@ -1,14 +1,14 @@
 version: 2.1
 
 jobs:
-  maven_test:
+  build:
     executor: cimg/openjdk:14.0.2
-    commands:
+    steps:
       - run: java --version
 
 workflows:
-  maven_test:
+  build:
     jobs:
-      - maven_test
+      - build
 
 
