@@ -1,11 +1,14 @@
 version: 2.1
 
-orbs:
-  maven: circleci/maven@1.0.2
+jobs:
+  maven_test:
+    executor: cimg/openjdk:14.0.2
+    commands:
+      - run: java --version
 
 workflows:
   maven_test:
     jobs:
-      - maven/test:
-          executor: cimg/openjdk:14.0.2
+      - maven_test
+
 
