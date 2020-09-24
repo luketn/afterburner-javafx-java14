@@ -6,8 +6,9 @@ jobs:
       - image: cimg/openjdk:14.0.2
     steps:
       - run: |
+          sudo apt-get update
           sudo apt -y install xvfb
-          xvfb `mvn package`
+      - run: xvfb `mvn package`
 
 workflows:
   build:
