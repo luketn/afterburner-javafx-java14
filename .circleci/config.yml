@@ -2,7 +2,8 @@ version: 2.1
 
 jobs:
   build:
-    executor: cimg/openjdk:14.0.2
+    docker:
+      - image: cimg/openjdk:14.0.2
     steps:
       - run: java --version
 
