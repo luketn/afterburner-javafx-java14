@@ -8,8 +8,13 @@
     <children>
         <BorderPane AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0">
             <top>
-                <FlowPane fx:id="lightsBox" />
+                <HBox fx:id="headerHBox">
+                    <Label fx:id="headerLabel" text="%heading"/>
+                </HBox>
             </top>
+            <center>
+                <FlowPane fx:id="lightsBox" />
+            </center>
             <bottom>
                 <VBox>
                     <Label fx:id="message" styleClass="boxSpacing"/>

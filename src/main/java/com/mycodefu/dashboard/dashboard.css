@@ -1,8 +1,17 @@
 #launch {
     -fx-background-color: #a21bc1;
 }
+
 #lightsBox {
     -fx-hgap: 1;
     -fx-vgap: 1;
     -fx-padding: 1 1 1 1;
+}
+
+#headerLabel {
+    -fx-font-size: 100px;
+}
+
+#headerHBox {
+    -fx-alignment: center;
 }

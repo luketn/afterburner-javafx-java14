@@ -11,6 +11,7 @@ https://openjfx.io/javadoc/15/javafx.graphics/javafx/scene/doc-files/cssref.html
 
 .root {    
     -fx-font: 14px "Helvetica";
+    -fx-background-color: #1a1616;
 }
 
 .button {
