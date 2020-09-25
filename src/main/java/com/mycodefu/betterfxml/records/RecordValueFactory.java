@@ -10,6 +10,9 @@ import javafx.util.Callback;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * TableView cell value factory supporting Java immutable Record type values.
+ */
 public class RecordValueFactory<S, T> implements Callback<CellDataFeatures<S, T>, ObservableValue<T>> {
     private final String property;
     private Class<?> columnClass;
@@ -27,11 +30,6 @@ public class RecordValueFactory<S, T> implements Callback<CellDataFeatures<S, T>
         return getCellDataFromRecordReflectively(param.getValue());
     }
 
-    /**
-     * Returns the property name provided in the constructor.
-     *
-     * @return the property name provided in the constructor
-     */
     public final String getProperty() {
         return property;
     }
@@ -39,7 +37,7 @@ public class RecordValueFactory<S, T> implements Callback<CellDataFeatures<S, T>
     private ObservableValue<T> getCellDataFromRecordReflectively(S rowData) {
         if (getProperty() == null || getProperty().isEmpty() || rowData == null) return null;
 
-        SimpleValue<T> result;
+        ObservableValue<T> result;
         try {
             if (columnClass == null) {
                 this.columnClass = rowData.getClass();
@@ -47,7 +45,7 @@ public class RecordValueFactory<S, T> implements Callback<CellDataFeatures<S, T>
             if (this.method == null) {
                 this.method = this.columnClass.getDeclaredMethod(getProperty());
             }
-            result = new SimpleValue<>((T) this.method.invoke(rowData));
+            result =  new SimpleValue<>((T) this.method.invoke(rowData));
 
         } catch (RuntimeException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();

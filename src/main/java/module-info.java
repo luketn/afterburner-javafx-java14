@@ -1,4 +1,4 @@
-open module mycodefujfx14 {
+open module javafxtemplate {
 	uses com.mycodefu.afterburner.injection.PresenterFactory;
 
 	requires java.annotation;
