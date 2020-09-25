@@ -12,10 +12,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>14</maven.compiler.target>
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.release>14</maven.compiler.release>
-        <javafx.version>14</javafx.version>
+        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.release>15</maven.compiler.release>
+        <javafx.version>15</javafx.version>
         <javafx.maven.plugin.version>0.0.4</javafx.maven.plugin.version>
         <client.maven.plugin.version>0.1.32</client.maven.plugin.version>
         <client.target>host</client.target>
@@ -136,9 +136,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <release>14</release>
-                    <source>14</source>
-                    <target>14</target>
+                    <release>15</release>
+                    <source>15</source>
+                    <target>15</target>
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>

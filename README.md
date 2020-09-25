@@ -13,3 +13,8 @@ Changes from the igniter archetype:
 * Copied the 3 classes in from the AfterBurner library, and removed the Java 8 specific annotations.
 * Added a module-info.java for the javafx modules.
 
+### IntelliJ Config
+Use JDK 15, with this vm option:
+```
+--add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls
+```
