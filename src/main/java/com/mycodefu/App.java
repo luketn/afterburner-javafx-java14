@@ -29,7 +29,7 @@ public class App extends Application {
         System.setProperty("happyEnding", " Enjoy the flight!");
         DashboardView appView = new DashboardView();
         Scene scene = new Scene(appView.getView(), 640, 480);
-        stage.setTitle("Afterburner Java14");
+        stage.setTitle(String.format("Java Template (Java %s, JavaFX %s)", System.getProperty("java.version"), System.getProperty("javafx.runtime.version")));
         setGlobalStylesheetToScene(scene);
         stage.setScene(scene);
         stage.show();

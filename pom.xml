@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycodefu</groupId>
-    <artifactId>javafx-15-java-14-template</artifactId>
+    <artifactId>javafx-template</artifactId>
     <version>1</version>
     <packaging>jar</packaging>
-    <name>javafx-15-java-14-template</name>
+    <name>javafx-template</name>
     <url>https://mycodefu.com</url>
 
     <properties>
@@ -93,10 +93,6 @@
                 <version>0.0.3</version>
                 <configuration>
                     <mainClass>${main.class}</mainClass>
-                    <options>
-                        <option>--add-exports</option>
-                        <option>javafx.base/com.sun.javafx.event=org.controlsfx.controls</option>
-                    </options>
                 </configuration>
             </plugin>
             <plugin>
