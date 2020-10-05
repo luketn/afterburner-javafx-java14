@@ -20,6 +20,7 @@
         <client.maven.plugin.version>0.1.32</client.maven.plugin.version>
         <client.target>host</client.target>
         <main.class>com.mycodefu.App</main.class>
+        <desktop>true</desktop>
     </properties>
 
     <dependencies>
@@ -67,13 +68,13 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.7.0</version>
-            <scope>compile</scope>
+            <version>5.5.1</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.7.0</version>
+            <version>5.5.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -152,19 +153,6 @@
                     <mainClass>${main.class}</mainClass>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <configuration>
-                    <argLine>
-                        --add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls
-                        --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
-                        --add-opens java.base/java.lang=ALL-UNNAMED
-                        --enable-preview
-                    </argLine>
-                </configuration>
-            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -183,4 +171,66 @@
             </resource>
         </resources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>desktop</id>
+            <activation>
+                <property>
+                    <name>desktop</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M5</version>
+                        <configuration>
+                            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                            <argLine>
+                                --add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls
+                                --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                                --add-opens java.base/java.lang=ALL-UNNAMED
+                                --enable-preview
+                            </argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>notdesktop</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>desktop</name>
+                    <value>false</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M5</version>
+                        <configuration>
+                            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                            <argLine>
+                                --add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls
+                                --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                                --add-opens java.base/java.lang=ALL-UNNAMED
+                                --enable-preview
+                                --add-exports javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
+                                -Dglass.platform=Monocle
+                                -Dmonocle.platform=Headless
+                                -Dprism.order=sw
+                            </argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
