@@ -226,6 +226,7 @@
                                 -Dglass.platform=Monocle
                                 -Dmonocle.platform=Headless
                                 -Dprism.order=sw
+                                -Dprism.fontdir=/usr/share/fonts
                             </argLine>
                         </configuration>
                     </plugin>
