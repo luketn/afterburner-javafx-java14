@@ -65,7 +65,7 @@ class TablesTest extends ApplicationTest {
         clickOn(MouseButton.PRIMARY);
 
         testScreenshot(tablesView);
-        assertEquals(3, tableView.getItems().size());
+        assertEquals(2, tableView.getItems().size());
 
         TableRowData tableRowData = tableView.getItems().get(2);
         assertEquals("Big Nessy", tableRowData.name());
