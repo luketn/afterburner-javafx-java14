@@ -11,6 +11,8 @@ jobs:
           echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
           sudo apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
       - run: mvn package
+      - store_artifacts:
+          path: test-screenshots
 
 workflows:
   build:
