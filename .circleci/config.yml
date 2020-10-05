@@ -6,6 +6,9 @@ jobs:
       - image: cimg/openjdk:15.0.0
     steps:
       - checkout
+      - run: |
+          echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+          sudo apt-get install ttf-mscorefonts-installer
       - run: mvn package
 
 workflows:
