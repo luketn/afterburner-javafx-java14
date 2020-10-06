@@ -13,11 +13,11 @@ import java.lang.reflect.Method;
 /**
  * TableView cell value factory supporting Java immutable Record type values.
  */
-public class RecordValueFactory<S, T> implements Callback<CellDataFeatures<S, T>, ObservableValue<T>> {
+public class RecordValueFactory<S extends Record> implements Callback<CellDataFeatures<S, Object>, ObservableValue<Object>> {
     private MethodHandle methodHandle;
 
     @Override
-    public ObservableValue<T> call(CellDataFeatures<S, T> param) {
+    public ObservableValue<Object> call(CellDataFeatures<S, Object> param) {
         String id = param.getTableColumn().getId();
         S rowData = param.getValue();
 
@@ -27,19 +27,18 @@ public class RecordValueFactory<S, T> implements Callback<CellDataFeatures<S, T>
             id = id.substring(0, "Column".length());
         }
 
-        ObservableValue<T> result;
+        ObservableValue<Object> result;
         try {
             if (this.methodHandle == null) {
                 Class<?> columnClass = rowData.getClass();
                 Method declaredMethod = columnClass.getDeclaredMethod(id);
-                MethodHandle methodHandle = MethodHandles.lookup().unreflect(declaredMethod);
 
-                this.methodHandle = methodHandle;
+                this.methodHandle = MethodHandles.lookup().unreflect(declaredMethod);
             }
 
-            T value = (T) this.methodHandle.invoke(rowData);
+            Object value = this.methodHandle.invoke(rowData);
 
-            result =  new SimpleValue<>(value);
+            result = new SimpleValue<>(value);
 
         } catch (Throwable e) {
             e.printStackTrace();
