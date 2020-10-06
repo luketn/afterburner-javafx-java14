@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import com.mycodefu.betterfxml.records.RecordValueFactory?>
+<?import com.mycodefu.betterfxml.records.RecordTableColumn?>
 <AnchorPane fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="com.mycodefu.dashboard.tables.TablesPresenter">
     <children>
         <SplitPane dividerPositions="0.7" focusTraversable="true"
@@ -19,16 +20,8 @@
                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
-                                <TableColumn fx:id="name" text="Name">
-                                    <cellValueFactory>
-                                        <RecordValueFactory property="name"/>
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn fx:id="description" text="Description">
-                                    <cellValueFactory>
-                                        <RecordValueFactory property="description"/>
-                                    </cellValueFactory>
-                                </TableColumn>
+                                <RecordTableColumn fx:id="name" text="Name" />
+                                <RecordTableColumn fx:id="description" text="Description" />
                             </columns>
                         </TableView>
                     </children>

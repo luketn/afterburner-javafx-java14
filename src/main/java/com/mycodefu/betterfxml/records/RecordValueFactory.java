@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
 
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -14,28 +15,23 @@ import java.lang.reflect.Method;
  * TableView cell value factory supporting Java immutable Record type values.
  */
 public class RecordValueFactory<S, T> implements Callback<CellDataFeatures<S, T>, ObservableValue<T>> {
-    private final String property;
     private Class<?> columnClass;
-    private Method method;
-
-    public RecordValueFactory(@NamedArg("property") String property) {
-        this.property = property;
-    }
+    private java.lang.invoke.MethodHandle method;
 
     /**
      * {@inheritDoc}
      */
     @Override
     public ObservableValue<T> call(CellDataFeatures<S, T> param) {
-        return getCellDataFromRecordReflectively(param.getValue());
+        return getCellDataFromRecordReflectively(param.getTableColumn().getId(), param.getValue());
     }
 
-    public final String getProperty() {
-        return property;
-    }
+    private ObservableValue<T> getCellDataFromRecordReflectively(String id, S rowData) {
+        if (id == null || id.isEmpty() || rowData == null) return null;
 
-    private ObservableValue<T> getCellDataFromRecordReflectively(S rowData) {
-        if (getProperty() == null || getProperty().isEmpty() || rowData == null) return null;
+        if (id.endsWith("Column")) {
+            id = id.substring(0, "Column".length());
+        }
 
         ObservableValue<T> result;
         try {
@@ -43,11 +39,14 @@ public class RecordValueFactory<S, T> implements Callback<CellDataFeatures<S, T>
                 this.columnClass = rowData.getClass();
             }
             if (this.method == null) {
-                this.method = this.columnClass.getDeclaredMethod(getProperty());
+                this.method = MethodHandles.lookup().unreflect(this.columnClass.getDeclaredMethod(id));
             }
-            result =  new SimpleValue<>((T) this.method.invoke(rowData));
 
-        } catch (RuntimeException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            T value = (T) this.method.invoke(rowData);
+
+            result =  new SimpleValue<>(value);
+
+        } catch (Throwable e) {
             e.printStackTrace();
             result = null;
         }
