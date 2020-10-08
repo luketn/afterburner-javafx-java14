@@ -138,20 +138,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>1.7</version>
                 <executions>
                     <execution>
                         <id>pack</id>
                         <phase>package</phase>
                         <configuration>
                             <target>
-                                <mkdir dir="${project.build.directory}/release-directory/lib"/>
-                                <copy todir="${project.build.directory}/release-directory/lib">
-                                    <fileset dir="${project.basedir}/lib">
-                                        <include name="*.jar"/>
-                                        <include name="*.dylib"/>
-                                    </fileset>
-                                </copy>
+                                <mkdir dir="${project.build.directory}/release-directory"/>
                                 <copy todir="${project.build.directory}/release-directory">
                                     <fileset dir="${project.basedir}/script">
                                         <include name="*.sh"/>
