@@ -16,7 +16,7 @@ import static org.testfx.util.DebugUtils.saveNode;
 public class MyFxTestUtils {
     private static final Map<String, AtomicInteger> SCREENSHOT_NUMBERS = new ConcurrentHashMap<>();
 
-    public static void testScreenshot(FXMLView view) {
+    public static void takeScreenshot(FXMLView view) {
         saveNode(view.getView(), getScreenshotPath(), " ").apply(new StringBuilder());
     }
 

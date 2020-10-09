@@ -22,7 +22,7 @@
                     <Label text="%welcome" styleClass="boxSpacing"/>
                     <HBox styleClass="boxSpacing">
                         <Button fx:id="launch" onAction="#launch" text="%launch" defaultButton="true"/>
-                        <Button onAction="#createLights" text="%create" />
+                        <Button fx:id="createLights" onAction="#createLights" text="%create" />
                     </HBox>
                 </VBox>
             </bottom>

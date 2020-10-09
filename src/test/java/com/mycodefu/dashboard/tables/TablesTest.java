@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import static com.mycodefu.MyFxTestUtils.testScreenshot;
+import static com.mycodefu.MyFxTestUtils.takeScreenshot;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testfx.assertions.api.Assertions.assertThat;
 
@@ -44,7 +44,7 @@ class TablesTest extends ApplicationTest {
 
     @Test
     void add_person() {
-        testScreenshot(tablesView);
+        takeScreenshot(tablesView);
 
         TableView<TableRowData> tableView = lookup("#dataTable").queryTableView();
         assertEquals(2, tableView.getItems().size());
@@ -53,13 +53,13 @@ class TablesTest extends ApplicationTest {
         clickOn(personTextField);
         write("Big Nessy");
 
-        testScreenshot(tablesView);
+        takeScreenshot(tablesView);
         assertThat(personTextField.getText()).isEqualTo("Big Nessy");
 
         moveTo("#addPerson");
         clickOn(MouseButton.PRIMARY);
 
-        testScreenshot(tablesView);
+        takeScreenshot(tablesView);
         assertEquals(3, tableView.getItems().size());
 
         TableRowData tableRowData = tableView.getItems().get(2);

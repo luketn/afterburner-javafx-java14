@@ -1,3 +1,7 @@
+#root {
+    -fx-pref-width: 1024;
+    -fx-pref-height: 768;
+}
 #launch {
     -fx-background-color: #a21bc1;
 }

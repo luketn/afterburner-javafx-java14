@@ -85,7 +85,7 @@ public class DashboardPresenter implements Initializable {
 
 
     public void createLights() {
-        createLights(255);
+        createLights(256);
     }
     public void createLights(int lightCount) {
         for (int i = 0; i < lightCount; i++) {
