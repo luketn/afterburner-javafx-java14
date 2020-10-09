@@ -2,11 +2,14 @@ package com.mycodefu.dashboard;
 
 import com.mycodefu.dashboard.light.LightView;
 import com.mycodefu.dashboard.tables.TablesView;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -15,6 +18,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.mycodefu.App.showModalView;
 
@@ -29,20 +33,12 @@ public class DashboardPresenter implements Initializable {
     Pane lightsBox;
 
     @Inject
-    Tower tower;
-
-    @Inject
-    private String prefix;
-
-    @Inject
-    private String happyEnding;
-
-    @Inject
     private LocalDate date;
 
     private String theEnd;
 
     private static Random random = new Random();
+    private static AtomicInteger lightCounter = new AtomicInteger(0);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -50,10 +46,10 @@ public class DashboardPresenter implements Initializable {
         String dateLabel = rb.getString("date");
         message.setText(dateLabel + ": " + date + theEnd);
 
-        System.out.println("Initialized by JavaFX.");
-
         root.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.isControlDown()) {
+            if (keyEvent.getCode()== KeyCode.ESCAPE) {
+                ((Stage)root.getScene().getWindow()).close();
+            } else if (keyEvent.isControlDown()) {
                 switch (keyEvent.getCode()){
                     case NUMPAD1, DIGIT1: {
                         createLights(10);
@@ -74,6 +70,7 @@ public class DashboardPresenter implements Initializable {
                 }
             }
         });
+        System.out.println("JavaFX initialize()");
     }
 
     @PostConstruct
@@ -86,6 +83,7 @@ public class DashboardPresenter implements Initializable {
         System.out.println("Dashboard about to be destroyed.");
     }
 
+
     public void createLights() {
         createLights(255);
     }
@@ -94,6 +92,9 @@ public class DashboardPresenter implements Initializable {
             final int red = random.nextInt(255);
             LightView view = new LightView((f) -> red);
             view.getViewAsync(lightsBox.getChildren()::add);
+            if(lightCounter.incrementAndGet() > 2048) {
+                Platform.runLater(() -> lightsBox.getChildren().remove(0));
+            }
         }
     }
 

@@ -2,8 +2,12 @@ package com.mycodefu.dashboard.tables;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -16,6 +20,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 public class TablesPresenter implements Initializable {
+    @FXML
+    Node root;
 
     @FXML
     TableView<TableRowData> dataTable;
@@ -41,6 +47,12 @@ public class TablesPresenter implements Initializable {
         dataTable.getItems().add(new TableRowData("Bob", "Pal"));
 
         System.out.println("Tables initialized by JavaFX.");
+
+        root.setOnKeyPressed(event -> {
+            if (event.getCode()== KeyCode.ESCAPE) {
+                ((Stage)root.getScene().getWindow()).close();
+            }
+        });
     }
 
     @PostConstruct
@@ -68,5 +80,15 @@ public class TablesPresenter implements Initializable {
 
         personTextField.setText("");
         personTextField.requestFocus();
+    }
+
+    public void keyPressed(KeyEvent keyEvent) {
+        switch(keyEvent.getCode()){
+            case DELETE, BACK_SPACE: {
+                TableRowData selectedItem = dataTable.getSelectionModel().getSelectedItem();
+                dataTable.getItems().remove(selectedItem);
+                break;
+            }
+        }
     }
 }

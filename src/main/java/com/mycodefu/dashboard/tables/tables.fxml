@@ -18,7 +18,7 @@
                     <children>
                         <TableView fx:id="dataTable"
                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onKeyPressed="#keyPressed">
                             <columns>
                                 <RecordTableColumn fx:id="name" text="Name" />
                                 <RecordTableColumn fx:id="description" text="Description" />
