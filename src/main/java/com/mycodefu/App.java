@@ -1,18 +1,18 @@
 package com.mycodefu;
 
 import com.mycodefu.afterburner.injection.Injector;
+import com.mycodefu.afterburner.views.FXMLView;
 import com.mycodefu.dashboard.DashboardView;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.mycodefu.dashboard.tables.TablesView;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.HashMap;
+import java.util.Map;
 
 public class App extends Application {
 
@@ -51,8 +51,8 @@ public class App extends Application {
         scene.getStylesheets().add(uri);
     }
 
-    public static void showModalView(TablesView tablesView) {
-        Parent root = tablesView.getView();
+    public static void showModalView(FXMLView view) {
+        Parent root = view.getView();
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         setGlobalStylesheetToScene(scene);

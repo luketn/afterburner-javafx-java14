@@ -47,10 +47,10 @@ public class DashboardPresenter implements Initializable {
         message.setText(dateLabel + ": " + date + theEnd);
 
         root.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode()== KeyCode.ESCAPE) {
-                ((Stage)root.getScene().getWindow()).close();
+            if (keyEvent.getCode() == KeyCode.ESCAPE) {
+                ((Stage) root.getScene().getWindow()).close();
             } else if (keyEvent.isControlDown()) {
-                switch (keyEvent.getCode()){
+                switch (keyEvent.getCode()) {
                     case NUMPAD1, DIGIT1: {
                         createLights(10);
                         break;
@@ -74,12 +74,12 @@ public class DashboardPresenter implements Initializable {
     }
 
     @PostConstruct
-    public void postConstruct(){
+    public void postConstruct() {
         System.out.println("Dashboard constructed.");
     }
 
     @PreDestroy
-    public void preDestroy(){
+    public void preDestroy() {
         System.out.println("Dashboard about to be destroyed.");
     }
 
@@ -87,12 +87,15 @@ public class DashboardPresenter implements Initializable {
     public void createLights() {
         createLights(256);
     }
+
     public void createLights(int lightCount) {
         for (int i = 0; i < lightCount; i++) {
             final int red = random.nextInt(255);
-            LightView view = new LightView((f) -> red);
+            final int green = random.nextInt(255);
+            final int blue = random.nextInt(255);
+            LightView view = new LightView(red, green, blue);
             view.getViewAsync(lightsBox.getChildren()::add);
-            if(lightCounter.incrementAndGet() > 2048) {
+            if (lightCounter.incrementAndGet() > 2048) {
                 Platform.runLater(() -> lightsBox.getChildren().remove(0));
             }
         }

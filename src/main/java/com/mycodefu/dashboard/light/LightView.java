@@ -2,10 +2,13 @@ package com.mycodefu.dashboard.light;
 
 import com.mycodefu.afterburner.views.FXMLView;
 
-import java.util.function.Function;
-
 public class LightView extends FXMLView {
-    public LightView(Function<String, Object> injectionContext) {
-        super(injectionContext);
+    public LightView(int red, int green, int blue) {
+        super(key -> switch (key) {
+            case "red" -> red;
+            case "green" -> green;
+            case "blue" -> blue;
+            default -> null;
+        });
     }
 }

@@ -16,9 +16,15 @@ public class LightPresenter implements Initializable {
     @Inject
     int red;
 
+    @Inject
+    int green;
+
+    @Inject
+    int blue;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        light.setFill(Color.rgb(red, 0, 0));
+        light.setFill(Color.rgb(red, green, blue));
     }
 
 }

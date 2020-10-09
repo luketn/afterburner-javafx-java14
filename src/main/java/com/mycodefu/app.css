@@ -14,7 +14,7 @@ https://openjfx.io/javadoc/15/javafx.graphics/javafx/scene/doc-files/cssref.html
     -fx-background-color: #1a1616;
 }
 
-.button {
+Button {
     -fx-background-color: darkslateblue;
     -fx-text-fill: white;
     -fx-pref-height: 30;
