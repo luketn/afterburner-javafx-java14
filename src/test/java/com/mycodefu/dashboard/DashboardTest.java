@@ -40,6 +40,8 @@ class DashboardTest extends ApplicationTest {
 
     @Test
     void createLights() {
+        takeScreenshot(dashboardView);
+
         moveTo("#createLights");
         clickOn(MouseButton.PRIMARY);
         takeScreenshot(dashboardView);

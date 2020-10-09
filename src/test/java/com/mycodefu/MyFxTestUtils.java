@@ -21,9 +21,11 @@ public class MyFxTestUtils {
     }
 
     private static Supplier<Path> getScreenshotPath() {
-        String methodName = new Exception().getStackTrace()[2].getMethodName();
+        StackTraceElement stackTraceElement = new Exception().getStackTrace()[2];
+        String className = getSimpleClassName(stackTraceElement);
+        String methodName = stackTraceElement.getMethodName();
         return () -> {
-            Path path = Paths.get("test-screenshots", methodName, String.format("%d.png", getScreenshotNumber(methodName)));
+            Path path = Paths.get("test-screenshots", className, methodName, String.format("%d.png", getScreenshotNumber(methodName)));
             try {
                 Files.createDirectories(path.getParent());
             } catch (IOException e) {
@@ -31,6 +33,17 @@ public class MyFxTestUtils {
             }
             return path;
         };
+    }
+
+    private static String getSimpleClassName(StackTraceElement stackTraceElement) {
+        String className = stackTraceElement.getClassName();
+        for (int i = className.length() - 1; i > 0; i--) {
+            if (className.charAt(i) == '.') {
+                className = className.substring(i + 1);
+                break;
+            }
+        }
+        return className;
     }
 
     private static int getScreenshotNumber(String methodName) {

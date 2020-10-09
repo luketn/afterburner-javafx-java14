@@ -37,12 +37,6 @@ class TablesTest extends ApplicationTest {
     }
 
     @Test
-    void should_contain_add_person_button() {
-        Button addPersonButton = lookup("#addPerson").queryButton();
-        assertThat(addPersonButton).hasText("Add Person");
-    }
-
-    @Test
     void add_person() {
         takeScreenshot(tablesView);
 
