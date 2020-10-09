@@ -7,6 +7,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
@@ -89,6 +90,13 @@ public class TablesPresenter implements Initializable {
                 dataTable.getItems().remove(selectedItem);
                 break;
             }
+        }
+    }
+
+    public void mouseClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getClickCount() >= 2) {
+            TableRowData selectedItem = dataTable.getSelectionModel().getSelectedItem();
+            System.out.printf("Double-clicked on %s!\n", selectedItem);
         }
     }
 }
