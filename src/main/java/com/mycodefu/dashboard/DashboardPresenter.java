@@ -51,22 +51,10 @@ public class DashboardPresenter implements Initializable {
                 ((Stage) root.getScene().getWindow()).close();
             } else if (keyEvent.isControlDown()) {
                 switch (keyEvent.getCode()) {
-                    case NUMPAD1, DIGIT1: {
-                        createLights(10);
-                        break;
-                    }
-                    case NUMPAD2, DIGIT2: {
-                        createLights(20);
-                        break;
-                    }
-                    case NUMPAD3, DIGIT3: {
-                        createLights(30);
-                        break;
-                    }
-                    case P: {
-                        lightsBox.getChildren().clear();
-                        break;
-                    }
+                    case NUMPAD1, DIGIT1 -> createLights(10);
+                    case NUMPAD2, DIGIT2 -> createLights(20);
+                    case NUMPAD3, DIGIT3 -> createLights(30);
+                    case P -> lightsBox.getChildren().clear();
                 }
             }
         });
