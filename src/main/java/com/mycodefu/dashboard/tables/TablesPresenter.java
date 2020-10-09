@@ -36,7 +36,7 @@ public class TablesPresenter implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         namesAutocompleteBinding = TextFields.bindAutoCompletion(personTextField, names);
         personTextField.setOnKeyPressed(event -> {
-            switch(event.getCode()) {
+            switch (event.getCode()) {
                 case ENTER: {
                     addPerson();
                     break;
@@ -50,19 +50,19 @@ public class TablesPresenter implements Initializable {
         System.out.println("Tables initialized by JavaFX.");
 
         root.setOnKeyPressed(event -> {
-            if (event.getCode()== KeyCode.ESCAPE) {
-                ((Stage)root.getScene().getWindow()).close();
+            if (event.getCode() == KeyCode.ESCAPE) {
+                ((Stage) root.getScene().getWindow()).close();
             }
         });
     }
 
     @PostConstruct
-    public void postConstruct(){
+    public void postConstruct() {
         System.out.println("Tables constructed.");
     }
 
     @PreDestroy
-    public void preDestroy(){
+    public void preDestroy() {
         System.out.println("Tables about to be destroyed.");
     }
 
@@ -84,11 +84,10 @@ public class TablesPresenter implements Initializable {
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        switch(keyEvent.getCode()){
-            case DELETE, BACK_SPACE: {
+        switch (keyEvent.getCode()) {
+            case DELETE, BACK_SPACE -> {
                 TableRowData selectedItem = dataTable.getSelectionModel().getSelectedItem();
                 dataTable.getItems().remove(selectedItem);
-                break;
             }
         }
     }
