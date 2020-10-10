@@ -58,6 +58,6 @@ public class App extends Application {
         setGlobalStylesheetToScene(scene);
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
+        stage.showAndWait();
     }
 }

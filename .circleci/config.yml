@@ -41,7 +41,8 @@ jobs:
             wget "https://corretto.aws/downloads/latest/amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
             tar -xvf "amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
 
-            echo "export JAVA_HOME=$(pwd)/amazon-corretto-${CORRETTO_VERSION}.jdk/Contents/Home" >> ~/.bash_profile
+            export JAVA_HOME="$(pwd)/amazon-corretto-${CORRETTO_VERSION}.jdk/Contents/Home"
+            echo "export JAVA_HOME=${JAVA_HOME}" >> ~/.bash_profile
             echo "export PATH=$JAVA_HOME/bin:$PATH" >> ~/.bash_profile
 
       - run:
@@ -50,11 +51,10 @@ jobs:
             wget "https://apache.mirror.digitalpacific.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
             tar -xvf "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
 
-            echo "export MAVEN_HOME=$(pwd)/apache-maven-${MAVEN_VERSION}" >> ~/.bash_profile
-            echo "export M2_HOME=$MAVEN_HOME" >> ~/.bash_profile
-            echo "export PATH=$MAVEN_HOME/bin:$PATH" >> ~/.bash_profile
-
-            cat ~/.bash_profile
+            export MAVEN_HOME="$(pwd)/apache-maven-${MAVEN_VERSION}"
+            echo "export MAVEN_HOME=${MAVEN_HOME}" >> ~/.bash_profile
+            echo "export M2_HOME=${MAVEN_HOME}" >> ~/.bash_profile
+            echo "export PATH=${MAVEN_HOME}/bin:$PATH" >> ~/.bash_profile
 
       - run:
           name: Maven Install Build

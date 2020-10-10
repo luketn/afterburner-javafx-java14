@@ -92,5 +92,6 @@ public class DashboardPresenter implements Initializable {
     public void launch() {
         TablesView tablesView = new TablesView();
         showModalView(tablesView);
+        System.out.println("here");
     }
 }
