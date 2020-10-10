@@ -42,9 +42,12 @@ class TablesTest extends ApplicationTest {
 
         TableView<TableRowData> tableView = lookup("#dataTable").queryTableView();
         assertEquals(2, tableView.getItems().size());
+        clickOn(tableView);
+        takeScreenshot(tablesView);
 
         TextInputControl personTextField = lookup("#personTextField").queryTextInputControl();
         clickOn(personTextField);
+        takeScreenshot(tablesView);
         write("Big Nessy");
 
         takeScreenshot(tablesView);
