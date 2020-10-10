@@ -65,6 +65,9 @@ jobs:
             mvn clean install
 
       - store_artifacts:
+          path: test-screenshots
+
+      - store_artifacts:
           path: ./target/installer/javafx-template-1.$CIRCLE_BUILD_NUM.pkg
           destination: javafx-template-1.$CIRCLE_BUILD_NUM.pkg
 
