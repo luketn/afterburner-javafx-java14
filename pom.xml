@@ -227,6 +227,7 @@
                                 <configuration>
                                     <target>
                                         <exec executable="jpackage">
+                                            <arg line="--type pkg"/>
                                             <arg line="--dest ./target/installer"/>
                                             <arg line="--input ./target/release-directory"/>
                                             <arg line="--main-jar &quot;${build.finalName}.jar&quot;"/>
@@ -234,7 +235,6 @@
                                             <arg line="--add-modules javafx.controls,javafx.fxml"/>
                                             <arg line="--java-options &quot;--enable-preview&quot;"/>
                                             <arg line="--icon ./assets/app.ico"/>
-                                            <arg line="--type pkg"/>
                                             <arg line="--name &quot;${build.finalName}&quot;"/>
                                             <arg line="--app-version &quot;${project.version}.${env.CIRCLE_BUILD_NUM}&quot;"/>
                                             <arg line="--copyright &quot;2020 Luke Thompson&quot;"/>

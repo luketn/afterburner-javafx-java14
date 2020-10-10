@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  build-ci:
     docker:
       - image: cimg/openjdk:15.0.0
     steps:
@@ -13,10 +13,98 @@ jobs:
       - run: mvn package
       - store_artifacts:
           path: test-screenshots
+      - run: |
+          echo "$(git tag -l --points-at HEAD)" > ~/circle_tag.txt
+      - persist_to_workspace:
+          root: ~/
+          paths: circle_tag.txt
+
+  build-mac-installer:
+    environment:
+      CORRETTO_VERSION: 15
+      MAVEN_VERSION: 3.6.3
+
+    macos:
+      xcode: 12.0.0
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install Homebrew Dependencies
+          command: HOMEBREW_NO_AUTO_UPDATE=1 brew install wget
+
+      - run:
+          name: Install Corretto JDK 15
+
+          command: |
+            wget "https://corretto.aws/downloads/latest/amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
+            tar -xvf "amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
+
+            echo "export JAVA_HOME=$(pwd)/amazon-corretto-${CORRETTO_VERSION}.jdk/Contents/Home" >> ~/.bash_profile
+            echo "export PATH=$PATH:$JAVA_HOME/bin" >> ~/.bash_profile
+
+      - run:
+          name: Install Maven
+          command: |
+            wget "https://apache.mirror.digitalpacific.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+            tar -xvf "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+
+            echo "export MAVEN_HOME=$(pwd)/apache-maven-${MAVEN_VERSION}" >> ~/.bash_profile
+            echo "export M2_HOME=$MAVEN_HOME" >> ~/.bash_profile
+            echo "export PATH=$PATH:$MAVEN_HOME/bin" >> ~/.bash_profile
+
+      - run:
+          name: Maven Install Build
+          command: |
+            java -version
+            mvn -version
+
+            mvn clean install
+
+      - store_artifacts:
+          path: ./target/installer/javafx-template-1.$CIRCLE_BUILD_NUM.pkg
+          destination: javafx-template-1.$CIRCLE_BUILD_NUM.pkg
+
+#      - run:
+#          name: Persist Publish Settings
+#          command: |
+#            echo "${CIRCLE_BUILD_NUM}" > target/installer/version.txt
+
+#      - persist_to_workspace:
+#          root: ~/
+#          paths:
+#            - project/target/installer/javafx-template-1.$CIRCLE_BUILD_NUM.pkg
+#            - project/target/installer/version.txt
+
+#  publish-github-release:
+#    docker:
+#      - image: cibuilds/github:0.10
+#    steps:
+#      - attach_workspace:
+#          at: ./artifacts
+#      - run:
+#          name: "Publish Release on GitHub"
+#          command: |
+#            CIRCLE_TAG="$(cat ./artifacts/project/target/installer/version.txt)"
+#            rm -f ./artifacts/circle_tag.txt
+#            rm -f /root/project/artifacts/project/target/jpackage-app/-1.0.pkg
+#            echo "CIRCLE_TAG=${CIRCLE_TAG}"
+#
+#            ghr -t "${GITHUB_TOKEN}" \
+#                -u "${CIRCLE_PROJECT_USERNAME}" \
+#                -r "${CIRCLE_PROJECT_REPONAME}" \
+#                -c "${CIRCLE_SHA1}" \
+#                -replace \
+#                "${CIRCLE_TAG}" \
+#                "/root/project/artifacts/project/target/jpackage-app/"
+
 
 workflows:
   build:
     jobs:
-      - build
+      - build-ci
+      - build-mac-installer
+#      - publish-github-release
 
 
