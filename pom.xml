@@ -132,31 +132,25 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
+                <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>pack</id>
-                        <phase>package</phase>
-                        <configuration>
-                            <target>
-                                <mkdir dir="${project.build.directory}/release-directory"/>
-                                <copy todir="${project.build.directory}/release-directory">
-                                    <fileset dir="${project.basedir}/script">
-                                        <include name="*.sh"/>
-                                    </fileset>
-                                </copy>
-                                <exec executable="chmod">
-                                    <arg line="+x ${project.build.directory}/release-directory/run.sh"/>
-                                </exec>
-                            </target>
-                        </configuration>
+                        <phase>validate</phase>
                         <goals>
-                            <goal>run</goal>
+                            <goal>copy-resources</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/release-directory</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/script</directory>
+                                    <includes>
+                                        <include>run.sh</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -222,6 +216,39 @@
                             </argLine>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <id>jpackage</id>
+                                <phase>install</phase>
+                                <configuration>
+                                    <target>
+                                        <exec executable="jpackage">
+                                            <arg line="--dest ./target/installer"/>
+                                            <arg line="--input ./target/release-directory"/>
+                                            <arg line="--main-jar &quot;${build.finalName}.jar&quot;"/>
+                                            <arg line="--module-path ./target/release-directory/lib"/>
+                                            <arg line="--add-modules javafx.controls,javafx.fxml"/>
+                                            <arg line="--java-options &quot;--enable-preview&quot;"/>
+                                            <arg line="--icon ./assets/app.ico"/>
+                                            <arg line="--type pkg"/>
+                                            <arg line="--name &quot;${build.finalName}&quot;"/>
+                                            <arg line="--app-version &quot;${project.version}.${env.CIRCLE_BUILD_NUM}&quot;"/>
+                                            <arg line="--copyright &quot;2020 Luke Thompson&quot;"/>
+                                            <arg line="--vendor &quot;Luke Thompson&quot;"/>
+                                            <arg line="--verbose"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -280,6 +307,17 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>CIRCLE_BUILD_NUM environment variable default value</id>
+            <activation>
+                <property>
+                    <name>!env.CIRCLE_BUILD_NUM</name>
+                </property>
+            </activation>
+            <properties>
+                <env.CIRCLE_BUILD_NUM>0</env.CIRCLE_BUILD_NUM>
+            </properties>
         </profile>
     </profiles>
 </project>
