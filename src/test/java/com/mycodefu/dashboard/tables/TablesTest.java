@@ -50,8 +50,7 @@ class TablesTest extends ApplicationTest {
         takeScreenshot(tablesView);
         assertThat(personTextField.getText()).isEqualTo("Big Nessy");
 
-        moveTo("#addPerson");
-        clickOn(MouseButton.PRIMARY);
+        clickOn(lookup("#addPerson").queryButton());
         takeScreenshot(tablesView);
         assertEquals(3, tableView.getItems().size());
 
