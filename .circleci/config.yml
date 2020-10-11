@@ -137,7 +137,7 @@ jobs:
             java -version
             mvn -version
 
-            mvn install
+            mvn install -DskipTests
 
       - store_test_results:
           path: target/surefire-reports
@@ -193,7 +193,7 @@ workflows:
             tags:
               only: /.*/
       - build-windows-installer
-      - build-mac-installer
+#      - build-mac-installer
 #          <<: *release-filter
 #          requires:
 #            - build
