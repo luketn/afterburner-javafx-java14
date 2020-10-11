@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build-ci:
+  build:
     docker:
       - image: cimg/openjdk:15.0.0
     steps:
@@ -72,48 +72,58 @@ jobs:
           path: test-screenshots
 
       - store_artifacts:
-          path: ./target/installer/javafx-template-1.*.pkg
-          destination: ./
+          path: ./target/installer
+          destination: installer
 
-#      - run:
-#          name: Persist Publish Settings
-#          command: |
-#            echo "${CIRCLE_BUILD_NUM}" > target/installer/version.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/target/installer
 
-#      - persist_to_workspace:
-#          root: ~/
-#          paths:
-#            - project/target/installer/javafx-template-1.$CIRCLE_BUILD_NUM.pkg
-#            - project/target/installer/version.txt
+  publish-github-release:
+    docker:
+      - image: cibuilds/github:0.13
+    steps:
+      - attach_workspace:
+          at: ./artifacts
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            CIRCLE_TAG="$(cat ./artifacts/circle_tag.txt)"
+            rm -f ./artifacts/circle_tag.txt
+            rm -f /root/project/artifacts/project/target/installer/._*
+            echo "CIRCLE_TAG=${CIRCLE_TAG}"
 
-#  publish-github-release:
-#    docker:
-#      - image: cibuilds/github:0.10
-#    steps:
-#      - attach_workspace:
-#          at: ./artifacts
-#      - run:
-#          name: "Publish Release on GitHub"
-#          command: |
-#            CIRCLE_TAG="$(cat ./artifacts/project/target/installer/version.txt)"
-#            rm -f ./artifacts/circle_tag.txt
-#            rm -f /root/project/artifacts/project/target/jpackage-app/-1.0.pkg
-#            echo "CIRCLE_TAG=${CIRCLE_TAG}"
-#
-#            ghr -t "${GITHUB_TOKEN}" \
-#                -u "${CIRCLE_PROJECT_USERNAME}" \
-#                -r "${CIRCLE_PROJECT_REPONAME}" \
-#                -c "${CIRCLE_SHA1}" \
-#                -replace \
-#                "${CIRCLE_TAG}" \
-#                "/root/project/artifacts/project/target/jpackage-app/"
+            ghr -t "${GITHUB_TOKEN}" \
+                -u "${CIRCLE_PROJECT_USERNAME}" \
+                -r "${CIRCLE_PROJECT_REPONAME}" \
+                -c "${CIRCLE_SHA1}" \
+                -replace \
+                "${CIRCLE_TAG}" \
+                "/root/project/artifacts/project/target/installer/"
 
+release-filter: &release-filter
+  filters:
+    # ignore any commit on any branch by default
+    branches:
+      ignore: /.*/
+    # only act on version tags
+    tags:
+      only: /^v\d+\.\d+\.\d+$/
 
 workflows:
   build:
     jobs:
-      - build-ci
-      - build-mac-installer
-#      - publish-github-release
-
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      - build-mac-installer:
+          <<: *release-filter
+          requires:
+            - build
+      - publish-release:
+          <<: *release-filter
+          requires:
+            - build-mac-installer
 
