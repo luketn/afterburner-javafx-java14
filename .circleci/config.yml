@@ -25,6 +25,10 @@ jobs:
           paths: circle_tag.txt
 
   build-mac-installer:
+    environment:
+      CORRETTO_VERSION: 15
+      MAVEN_VERSION: 3.6.3
+
     macos:
       xcode: 12.0.0
 
@@ -37,8 +41,6 @@ jobs:
 
       - run:
           name: Install Corretto JDK
-          environment:
-            CORRETTO_VERSION: 15
           command: |
             wget "https://corretto.aws/downloads/latest/amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
             tar -xvf "amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
@@ -49,8 +51,6 @@ jobs:
 
       - run:
           name: Install Maven
-          environment:
-            MAVEN_VERSION: 3.6.3
           command: |
             wget "https://apache.mirror.digitalpacific.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
             tar -xvf "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
@@ -84,6 +84,10 @@ jobs:
             - project/target/installer
 
   build-windows-installer:
+    environment:
+      CORRETTO_VERSION: 15
+      MAVEN_VERSION: 3.6.3
+
     executor:
       name: windows/default
       shell: powershell.exe
@@ -98,8 +102,6 @@ jobs:
 
       - run:
           name: Install Corretto JDK
-          environment:
-            CORRETTO_VERSION: 15
           command: |
             Invoke-WebRequest -Uri "https://corretto.aws/downloads/latest/amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip" -OutFile "amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip"
             Expand-Archive ".\amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip"
@@ -112,8 +114,6 @@ jobs:
 
       - run:
           name: Install Maven
-          environment:
-            MAVEN_VERSION: 3.6.3
           command: |
             Invoke-WebRequest -Uri "https://apache.mirror.digitalpacific.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip" -OutFile "apache-maven-${MAVEN_VERSION}-bin.zip"
             Expand-Archive ".\apache-maven-${MAVEN_VERSION}-bin.zip"
@@ -187,12 +187,12 @@ workflows:
             tags:
               only: /.*/
       - build-windows-installer
-      - build-mac-installer:
-          <<: *release-filter
-          requires:
-            - build
-      - publish-github-release:
-          <<: *release-filter
-          requires:
-            - build-mac-installer
+      - build-mac-installer
+#          <<: *release-filter
+#          requires:
+#            - build
+#      - publish-github-release:
+#          <<: *release-filter
+#          requires:
+#            - build-mac-installer
 
