@@ -193,7 +193,7 @@ workflows:
             tags:
               only: /.*/
       - build-windows-installer
-#      - build-mac-installer
+      - build-mac-installer
 #          <<: *release-filter
 #          requires:
 #            - build
