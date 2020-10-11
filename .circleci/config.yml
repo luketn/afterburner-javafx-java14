@@ -107,9 +107,11 @@ jobs:
 
             $java_home = "$pwd\amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk"
             $old_path = [System.Environment]::GetEnvironmentVariable('PATH','Machine')
-            $new_path = "$old_path;$java_home\bin"
+            $new_path = "$java_home\bin;$old_path"
             [Environment]::SetEnvironmentVariable("PATH", "$new_path", "Machine")
             [Environment]::SetEnvironmentVariable("JAVA_HOME", "$java_home", "Machine")
+
+            [System.Environment]::GetEnvironmentVariable('PATH','Machine')
 
       - run:
           name: Install Maven
@@ -122,10 +124,12 @@ jobs:
 
             $maven_home = "$pwd\apache-maven-${MAVEN_VERSION}-bin\apache-maven-${MAVEN_VERSION}"
             $old_path = [System.Environment]::GetEnvironmentVariable('PATH','Machine')
-            $new_path = "$old_path;$maven_home\bin"
+            $new_path = "$maven_home\bin;$old_path"
             [Environment]::SetEnvironmentVariable("PATH", "$new_path", "Machine")
             [Environment]::SetEnvironmentVariable("MAVEN_HOME", "$maven_home", "Machine")
             [Environment]::SetEnvironmentVariable("M2_HOME", "$maven_home", "Machine")
+
+            [System.Environment]::GetEnvironmentVariable('PATH','Machine')
 
       - run:
           name: Maven Install Build
