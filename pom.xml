@@ -226,7 +226,7 @@
                                 <phase>install</phase>
                                 <configuration>
                                     <target>
-                                        <exec executable="jpackage">
+                                        <exec executable="jpackage" failonerror="true">
                                             <arg line="--type pkg"/>
                                             <arg line="--dest ./target/installer"/>
                                             <arg line="--input ./target/release-directory"/>
@@ -234,7 +234,7 @@
                                             <arg line="--module-path ./target/release-directory/lib"/>
                                             <arg line="--add-modules javafx.controls,javafx.fxml"/>
                                             <arg line="--java-options &quot;--enable-preview&quot;"/>
-                                            <arg line="--icon ./assets/app.ico"/>
+                                            <arg line="--icon ./assets/app.icns"/>
                                             <arg line="--name &quot;${build.finalName}&quot;"/>
                                             <arg line="--app-version &quot;${project.version}.${env.CIRCLE_BUILD_NUM}&quot;"/>
                                             <arg line="--copyright &quot;2020 Luke Thompson&quot;"/>
@@ -309,7 +309,7 @@
             </build>
         </profile>
         <profile>
-            <id>CIRCLE_BUILD_NUM environment variable default value</id>
+            <id>Default value CI Build Number</id>
             <activation>
                 <property>
                     <name>!env.CIRCLE_BUILD_NUM</name>
