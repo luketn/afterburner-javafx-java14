@@ -144,7 +144,7 @@ jobs:
             java -version
             mvn -version
 
-            mvn install
+            mvn install -DskipTests
 
       - store_test_results:
           path: target/surefire-reports
