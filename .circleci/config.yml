@@ -109,14 +109,8 @@ jobs:
           environment:
             CORRETTO_VERSION: 15
           command: |
-            mkdir amazon-corretto-${CORRETTO_VERSION}-x64-windows-jdk
-            cd amazon-corretto-${CORRETTO_VERSION}-x64-windows-jdk
-            wget "https://corretto.aws/downloads/latest/amazon-corretto-${CORRETTO_VERSION}-x64-windows-jdk.zip"
-            unzip amazon-corretto-${CORRETTO_VERSION}-x64-windows-jdk.zip
-
-            export JAVA_HOME="$(pwd)/amazon-corretto-${CORRETTO_VERSION}-x64-windows-jdk"
-            echo "export JAVA_HOME=${JAVA_HOME}" >> ~/.bash_profile
-            echo "export PATH=$JAVA_HOME/bin:\$PATH" >> ~/.bash_profile
+            wget "https://corretto.aws/downloads/latest/amazon-corretto-${CORRETTO_VERSION}-x64-windows-jdk.msi"
+            msiexec.exe /quiet amazon-corretto-${CORRETTO_VERSION}-x64-windows-jdk.msi
 
       - run:
           name: Maven Install Build
