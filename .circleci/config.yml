@@ -13,7 +13,7 @@ jobs:
           sudo apt-get update
           echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
           sudo apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
-      - run: mvn install
+      - run: mvn package
       - store_test_results:
           path: target/surefire-reports
       - store_artifacts:
@@ -24,7 +24,6 @@ jobs:
           root: ~/
           paths:
             - circle_tag.txt
-            - project/target/installer
 
   build-mac-installer:
     environment:
