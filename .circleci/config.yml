@@ -3,6 +3,10 @@ version: 2.1
 orbs:
   windows: circleci/windows@2.4.0
 
+environment:
+  CORRETTO_VERSION: 15
+  MAVEN_VERSION: 3.6.3
+
 jobs:
   build:
     docker:
@@ -37,8 +41,6 @@ jobs:
 
       - run:
           name: Install Corretto JDK
-          environment:
-            CORRETTO_VERSION: 15
           command: |
             wget "https://corretto.aws/downloads/latest/amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
             tar -xvf "amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
@@ -49,8 +51,6 @@ jobs:
 
       - run:
           name: Install Maven
-          environment:
-            MAVEN_VERSION: 3.6.3
           command: |
             wget "https://apache.mirror.digitalpacific.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
             tar -xvf "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
@@ -97,17 +97,29 @@ jobs:
             nuget install WiX.Toolset -Version 3.9.1208.0
 
       - run:
-          name: Install wget and maven with Chocolatey
-          command: |
-            choco install maven --version 3.6.3
-            choco install wget
-
-      - run:
           name: Install Corretto JDK
           command: |
-            $ProgressPreference = "SilentlyContinue"
-            wget "https://corretto.aws/downloads/latest/amazon-corretto-15-x64-windows-jdk.msi"
-            msiexec.exe /qn amazon-corretto-15-x64-windows-jdk.msi
+            Invoke-WebRequest -Uri "https://corretto.aws/downloads/latest/amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip" -OutFile "amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip"
+            Expand-Archive ".\amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip"
+
+            $java_home = "$pwd\amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk"
+            $old_path = [System.Environment]::GetEnvironmentVariable('PATH','Machine')
+            $new_path = "$old_path;$java_home\bin"
+            [Environment]::SetEnvironmentVariable("PATH", "$new_path", "Machine")
+            [Environment]::SetEnvironmentVariable("JAVA_HOME", "$java_home", "Machine")
+
+      - run:
+          name: Install Maven
+          command: |
+            Invoke-WebRequest -Uri "https://apache.mirror.digitalpacific.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip" -OutFile "apache-maven-${MAVEN_VERSION}-bin.zip"
+            Expand-Archive ".\apache-maven-${MAVEN_VERSION}-bin.zip"
+
+            $maven_home = "$pwd\apache-maven-${MAVEN_VERSION}-bin\apache-maven-${MAVEN_VERSION}"
+            $old_path = [System.Environment]::GetEnvironmentVariable('PATH','Machine')
+            $new_path = "$old_path;$maven_home\bin"
+            [Environment]::SetEnvironmentVariable("PATH", "$new_path", "Machine")
+            [Environment]::SetEnvironmentVariable("MAVEN_HOME", "$maven_home", "Machine")
+            [Environment]::SetEnvironmentVariable("M2_HOME", "$maven_home", "Machine")
 
       - run:
           name: Maven Install Build
