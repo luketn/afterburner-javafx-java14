@@ -12,6 +12,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import static com.mycodefu.MyFxTestUtils.takeScreenshot;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +42,7 @@ class TablesTest extends ApplicationTest {
     }
 
     @Test
-    void add_person() {
+    void add_person() throws TimeoutException {
         takeScreenshot(tablesView);
 
         TableView<TableRowData> tableView = lookup("#dataTable").queryTableView();
@@ -52,7 +56,8 @@ class TablesTest extends ApplicationTest {
 
         clickOn(lookup("#addPerson").queryButton());
         takeScreenshot(tablesView);
-        assertEquals(3, tableView.getItems().size());
+
+        WaitForAsyncUtils.waitFor(10, TimeUnit.SECONDS, () -> tableView.getItems().size() == 3);
 
         TableRowData tableRowData = tableView.getItems().get(2);
         assertEquals("Big Nessy", tableRowData.name());
