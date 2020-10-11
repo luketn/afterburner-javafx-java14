@@ -86,7 +86,7 @@ jobs:
   build-windows-installer:
     executor:
       name: windows/default
-      shell: bash.exe
+      shell: powershell.exe
 
     steps:
       - checkout
@@ -98,19 +98,15 @@ jobs:
 
       - run:
           name: Install wget and maven with Chocolatey
-          environment:
-            MAVEN_VERSION: 3.6.3
           command: |
             choco install maven --version 3.6.3
             choco install wget
 
       - run:
           name: Install Corretto JDK
-          environment:
-            CORRETTO_VERSION: 15
           command: |
-            wget "https://corretto.aws/downloads/latest/amazon-corretto-${CORRETTO_VERSION}-x64-windows-jdk.msi"
-            msiexec.exe /quiet amazon-corretto-${CORRETTO_VERSION}-x64-windows-jdk.msi
+            wget "https://corretto.aws/downloads/latest/amazon-corretto-15-x64-windows-jdk.msi"
+            msiexec.exe /quiet amazon-corretto-15-x64-windows-jdk.msi
 
       - run:
           name: Maven Install Build
