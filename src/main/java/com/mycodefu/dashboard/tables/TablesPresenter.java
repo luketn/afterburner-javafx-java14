@@ -67,8 +67,11 @@ public class TablesPresenter implements Initializable {
     }
 
     public void addPerson() {
+        System.out.println("Adding Person");
+
         String name = personTextField.getText().trim();
         if (name.isBlank()) {
+            System.out.println("Exit adding person early - name is empty.");
             return;
         }
 
@@ -81,6 +84,8 @@ public class TablesPresenter implements Initializable {
 
         personTextField.setText("");
         personTextField.requestFocus();
+
+        System.out.println("Added Person: " + name);
     }
 
     public void keyPressed(KeyEvent keyEvent) {

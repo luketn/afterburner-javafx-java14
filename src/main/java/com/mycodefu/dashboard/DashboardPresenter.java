@@ -77,6 +77,8 @@ public class DashboardPresenter implements Initializable {
     }
 
     public void createLights(int lightCount) {
+        System.out.printf("Creating %d lights!\n", lightCount);
+
         for (int i = 0; i < lightCount; i++) {
             final int red = random.nextInt(255);
             final int green = random.nextInt(255);
