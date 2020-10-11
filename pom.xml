@@ -134,6 +134,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>
@@ -211,6 +212,7 @@
                             <argLine>
                                 --add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls
                                 --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                                --add-exports javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
                                 --add-opens java.base/java.lang=ALL-UNNAMED
                                 --enable-preview
                             </argLine>
@@ -230,12 +232,12 @@
                                             <arg line="--type pkg"/>
                                             <arg line="--dest ./target/installer"/>
                                             <arg line="--input ./target/release-directory"/>
-                                            <arg line="--main-jar &quot;${build.finalName}.jar&quot;"/>
+                                            <arg line="--main-jar &quot;${project.build.finalName}.jar&quot;"/>
                                             <arg line="--module-path ./target/release-directory/lib"/>
                                             <arg line="--add-modules javafx.controls,javafx.fxml"/>
                                             <arg line="--java-options &quot;--enable-preview&quot;"/>
                                             <arg line="--icon ./assets/app.icns"/>
-                                            <arg line="--name &quot;${build.finalName}&quot;"/>
+                                            <arg line="--name &quot;${project.build.finalName}&quot;"/>
                                             <arg line="--app-version &quot;${project.version}.${env.CIRCLE_BUILD_NUM}&quot;"/>
                                             <arg line="--copyright &quot;2020 Luke Thompson&quot;"/>
                                             <arg line="--vendor &quot;Luke Thompson&quot;"/>
@@ -270,9 +272,9 @@
                             <argLine>
                                 --add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls
                                 --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                                --add-exports javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
                                 --add-opens java.base/java.lang=ALL-UNNAMED
                                 --enable-preview
-                                --add-exports javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
                                 -Dglass.platform=Monocle
                                 -Dmonocle.platform=Headless
                                 -Dprism.order=sw
@@ -300,10 +302,44 @@
                             <argLine>
                                 --add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls
                                 --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                                --add-exports javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
                                 --add-opens java.base/java.lang=ALL-UNNAMED
                                 --enable-preview
                             </argLine>
                         </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <id>jpackage</id>
+                                <phase>install</phase>
+                                <configuration>
+                                    <target>
+                                        <exec executable="jpackage" failonerror="true">
+                                            <arg line="--type msi"/>
+                                            <arg line="--dest ./target/installer"/>
+                                            <arg line="--input ./target/release-directory"/>
+                                            <arg line="--main-jar &quot;${project.build.finalName}.jar&quot;"/>
+                                            <arg line="--module-path ./target/release-directory/lib"/>
+                                            <arg line="--add-modules javafx.controls,javafx.fxml"/>
+                                            <arg line="--java-options &quot;--enable-preview&quot;"/>
+                                            <arg line="--icon ./assets/app.ico"/>
+                                            <arg line="--name &quot;${project.build.finalName}&quot;"/>
+                                            <arg line="--app-version &quot;${project.version}.${env.CIRCLE_BUILD_NUM}&quot;"/>
+                                            <arg line="--copyright &quot;2020 Luke Thompson&quot;"/>
+                                            <arg line="--vendor &quot;Luke Thompson&quot;"/>
+                                            <arg line="--verbose"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
