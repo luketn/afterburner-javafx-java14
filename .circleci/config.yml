@@ -28,10 +28,6 @@ jobs:
     macos:
       xcode: 12.0.0
 
-    environment:
-      CORRETTO_VERSION: 15
-      MAVEN_VERSION: 3.6.3
-
     steps:
       - checkout
 
@@ -41,6 +37,8 @@ jobs:
 
       - run:
           name: Install Corretto JDK
+          environment:
+            CORRETTO_VERSION: 15
           command: |
             wget "https://corretto.aws/downloads/latest/amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
             tar -xvf "amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
@@ -51,6 +49,8 @@ jobs:
 
       - run:
           name: Install Maven
+          environment:
+            MAVEN_VERSION: 3.6.3
           command: |
             wget "https://apache.mirror.digitalpacific.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
             tar -xvf "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
@@ -88,10 +88,6 @@ jobs:
       name: windows/default
       shell: powershell.exe
 
-    environment:
-      CORRETTO_VERSION: 15
-      MAVEN_VERSION: 3.6.3
-
     steps:
       - checkout
 
@@ -102,6 +98,8 @@ jobs:
 
       - run:
           name: Install Corretto JDK
+          environment:
+            CORRETTO_VERSION: 15
           command: |
             Invoke-WebRequest -Uri "https://corretto.aws/downloads/latest/amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip" -OutFile "amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip"
             Expand-Archive ".\amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip"
@@ -114,6 +112,8 @@ jobs:
 
       - run:
           name: Install Maven
+          environment:
+            MAVEN_VERSION: 3.6.3
           command: |
             Invoke-WebRequest -Uri "https://apache.mirror.digitalpacific.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip" -OutFile "apache-maven-${MAVEN_VERSION}-bin.zip"
             Expand-Archive ".\apache-maven-${MAVEN_VERSION}-bin.zip"
