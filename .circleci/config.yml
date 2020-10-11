@@ -84,10 +84,6 @@ jobs:
             - project/target/installer
 
   build-windows-installer:
-    environment:
-      CORRETTO_VERSION: 15
-      MAVEN_VERSION: 3.6.3
-
     executor:
       name: windows/default
       shell: powershell.exe
@@ -103,6 +99,9 @@ jobs:
       - run:
           name: Install Corretto JDK
           command: |
+            $CORRETTO_VERSION = "15"
+
+            $ProgressPreference = "SilentlyContinue"
             Invoke-WebRequest -Uri "https://corretto.aws/downloads/latest/amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip" -OutFile "amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip"
             Expand-Archive ".\amazon-corretto-$CORRETTO_VERSION-x64-windows-jdk.zip"
 
@@ -115,6 +114,9 @@ jobs:
       - run:
           name: Install Maven
           command: |
+            $MAVEN_VERSION = "3.6.3"
+
+            $ProgressPreference = "SilentlyContinue"
             Invoke-WebRequest -Uri "https://apache.mirror.digitalpacific.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip" -OutFile "apache-maven-${MAVEN_VERSION}-bin.zip"
             Expand-Archive ".\apache-maven-${MAVEN_VERSION}-bin.zip"
 
@@ -187,7 +189,7 @@ workflows:
             tags:
               only: /.*/
       - build-windows-installer
-      - build-mac-installer
+#      - build-mac-installer
 #          <<: *release-filter
 #          requires:
 #            - build
