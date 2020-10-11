@@ -3,11 +3,6 @@ version: 2.1
 orbs:
   windows: circleci/windows@2.4.0
 
-shared_environment_variables: &shared_environment_variables
-  environment:
-    CORRETTO_VERSION: 15
-    MAVEN_VERSION: 3.6.3
-
 jobs:
   build:
     docker:
@@ -33,7 +28,9 @@ jobs:
     macos:
       xcode: 12.0.0
 
-    <<: *shared_environment_variables
+    environment:
+      CORRETTO_VERSION: 15
+      MAVEN_VERSION: 3.6.3
 
     steps:
       - checkout
@@ -91,7 +88,9 @@ jobs:
       name: windows/default
       shell: powershell.exe
 
-    <<: *shared_environment_variables
+    environment:
+      CORRETTO_VERSION: 15
+      MAVEN_VERSION: 3.6.3
 
     steps:
       - checkout
