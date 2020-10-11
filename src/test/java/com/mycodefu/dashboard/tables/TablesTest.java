@@ -47,11 +47,11 @@ class TablesTest extends ApplicationTest {
         TextInputControl personTextField = lookup("#personTextField").queryTextInputControl();
         Platform.runLater(() -> personTextField.requestFocus());
         write("Big Nessy", 15);
+        takeScreenshot(tablesView);
         assertThat(personTextField.getText()).isEqualTo("Big Nessy");
 
         moveTo("#addPerson");
         clickOn(MouseButton.PRIMARY);
-
         takeScreenshot(tablesView);
         assertEquals(3, tableView.getItems().size());
 
