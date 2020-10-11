@@ -92,9 +92,16 @@ jobs:
       - checkout
 
       - run:
-          name: Install nuget dependencies
+          name: Install WIX
           command: |
             nuget install WiX.Toolset -Version 3.9.1208.0
+            $wix_home = "c:\Users\circleci\project\Wix.Toolset.3.9.1208.0\tools\wix"
+
+            $old_path = [System.Environment]::GetEnvironmentVariable('PATH','Machine')
+            $new_path = "$wix_home;$old_path"
+            [Environment]::SetEnvironmentVariable("PATH", "$new_path", "Machine")
+
+            [System.Environment]::GetEnvironmentVariable('PATH','Machine')
 
       - run:
           name: Install Corretto JDK
@@ -137,7 +144,7 @@ jobs:
             java -version
             mvn -version
 
-            mvn install -DskipTests
+            mvn install
 
       - store_test_results:
           path: target/surefire-reports
