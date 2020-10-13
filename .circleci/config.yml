@@ -53,7 +53,7 @@ jobs:
 
       - run:
           name: Maven Install Build
-          shell: /bin/sh -eol
+          shell: /bin/bash --login -eo pipefail
           command: |
             java -version
             mvn -version
