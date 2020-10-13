@@ -40,8 +40,14 @@ jobs:
           command: yum install -y wget tar gzip
 
       - run:
-          name: Install Maven
+          name: Setup Fonts
+          command: |
+            sudo apt-get update
+            echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+            sudo apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
 
+      - run:
+          name: Install Maven
           command: |
             wget "https://apache.mirror.digitalpacific.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
             tar -xvf "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
