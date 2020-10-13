@@ -37,7 +37,7 @@ jobs:
 
       - run:
           name: Install Dependencies
-          command: yum install -y wget tar
+          command: yum install -y wget tar gzip
 
       - run:
           name: Install Maven
@@ -45,8 +45,6 @@ jobs:
           command: |
             wget "https://apache.mirror.digitalpacific.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
             tar -xvf "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
-            ls -lah
-            ls -lah "$(pwd)/apache-maven-${MAVEN_VERSION}/"
 
             export MAVEN_HOME="$(pwd)/apache-maven-${MAVEN_VERSION}"
             echo "export MAVEN_HOME=${MAVEN_HOME}" >> ~/.bash_profile
