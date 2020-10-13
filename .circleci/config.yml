@@ -53,6 +53,7 @@ jobs:
 
       - run:
           name: Maven Install Build
+          shell: /bin/sh
           command: |
             java -version
             mvn -version
