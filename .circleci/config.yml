@@ -44,9 +44,8 @@ jobs:
       - run:
           name: Setup Fonts
           command: |
-            apt-get update
-            echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-            apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
+            wget https://www.itzgeek.com/msttcore-fonts-2.0-3.noarch.rpm
+            rpm -Uvh msttcore-fonts-2.0-3.noarch.rpm
 
       - run:
           name: Install Maven
