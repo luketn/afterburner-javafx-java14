@@ -32,6 +32,8 @@ jobs:
     docker:
       - image: amazoncorretto:15-al2-full
 
+    shell: /bin/bash --login -eo pipefail
+
     steps:
       - checkout
 
@@ -42,9 +44,9 @@ jobs:
       - run:
           name: Setup Fonts
           command: |
-            sudo apt-get update
+            apt-get update
             echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-            sudo apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
+            apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
 
       - run:
           name: Install Maven
@@ -59,7 +61,6 @@ jobs:
 
       - run:
           name: Maven Install Build
-          shell: /bin/bash --login -eo pipefail
           command: |
             java -version
             mvn -version
