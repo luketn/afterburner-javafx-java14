@@ -27,10 +27,11 @@ jobs:
 
   build-linux-installer:
     environment:
+      CORRETTO_VERSION: 15
       MAVEN_VERSION: 3.6.3
 
     docker:
-      - image: amazoncorretto:15-al2-full
+      - image: cimg/base
 
     shell: /bin/bash --login -eo pipefail
 
@@ -38,14 +39,21 @@ jobs:
       - checkout
 
       - run:
-          name: Install Dependencies
-          command: yum install -y wget tar gzip
-
-      - run:
           name: Setup Fonts
           command: |
-            wget https://www.itzgeek.com/msttcore-fonts-2.0-3.noarch.rpm
-            rpm -Uvh msttcore-fonts-2.0-3.noarch.rpm
+            sudo apt-get update
+            echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+            sudo apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
+
+      - run:
+          name: Install Corretto JDK
+          command: |
+            wget "https://corretto.aws/downloads/latest/amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
+            tar -xvf "amazon-corretto-${CORRETTO_VERSION}-x64-macos-jdk.tar.gz"
+
+            export JAVA_HOME="$(pwd)/amazon-corretto-${CORRETTO_VERSION}.jdk/Contents/Home"
+            echo "export JAVA_HOME=${JAVA_HOME}" >> ~/.bash_profile
+            echo "export PATH=$JAVA_HOME/bin:$PATH" >> ~/.bash_profile
 
       - run:
           name: Install Maven
