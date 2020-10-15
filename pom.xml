@@ -233,7 +233,7 @@
                                             <arg line="--java-options &quot;--enable-preview&quot;"/>
                                             <arg line="--icon ./assets/app.icns"/>
                                             <arg line="--name &quot;${project.build.finalName}&quot;"/>
-                                            <arg line="--app-version &quot;${project.version}.${env.CIRCLE_BUILD_NUM}&quot;"/>
+                                            <arg line="--app-version &quot;${project.version}.${env.DEPLOY_TAG}&quot;"/>
                                             <arg line="--copyright &quot;${jpackage-copyright}&quot;"/>
                                             <arg line="--vendor &quot;${jpackage-vendor}&quot;"/>
                                             <arg line="--verbose"/>
@@ -293,7 +293,7 @@
                                             <arg line="--java-options &quot;--enable-preview&quot;"/>
                                             <arg line="--icon ./assets/app.ico"/>
                                             <arg line="--name &quot;${project.build.finalName}&quot;"/>
-                                            <arg line="--app-version &quot;${project.version}.${env.CIRCLE_BUILD_NUM}&quot;"/>
+                                            <arg line="--app-version &quot;${project.version}.${env.DEPLOY_TAG}&quot;"/>
                                             <arg line="--copyright &quot;${jpackage-copyright}&quot;"/>
                                             <arg line="--vendor &quot;${jpackage-vendor}&quot;"/>
                                             <arg line="--verbose"/>
@@ -346,7 +346,7 @@
                                             <arg line="--java-options &quot;--enable-preview&quot;"/>
                                             <arg line="--icon ./assets/app.ico"/>
                                             <arg line="--name &quot;${project.build.finalName}&quot;"/>
-                                            <arg line="--app-version &quot;${project.version}.${env.CIRCLE_BUILD_NUM}&quot;"/>
+                                            <arg line="--app-version &quot;${project.version}.${env.DEPLOY_TAG}&quot;"/>
                                             <arg line="--copyright &quot;${jpackage-copyright}&quot;"/>
                                             <arg line="--vendor &quot;${jpackage-vendor}&quot;"/>
                                             <arg line="--verbose"/>
@@ -366,11 +366,11 @@
             <id>Default value CI Build Number</id>
             <activation>
                 <property>
-                    <name>!env.CIRCLE_BUILD_NUM</name>
+                    <name>!env.DEPLOY_TAG</name>
                 </property>
             </activation>
             <properties>
-                <env.CIRCLE_BUILD_NUM>0</env.CIRCLE_BUILD_NUM>
+                <env.DEPLOY_TAG>0</env.DEPLOY_TAG>
             </properties>
         </profile>
     </profiles>

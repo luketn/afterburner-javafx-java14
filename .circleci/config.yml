@@ -25,12 +25,12 @@ jobs:
           path: test-screenshots
 
       - run: |
-          echo "$(git tag -l --points-at HEAD)" > ~/circle_tag.txt
+          echo "$(git tag -l --points-at HEAD)" > ~/deploy_tag.txt
 
       - persist_to_workspace:
           root: ~/
           paths:
-            - circle_tag.txt
+            - deploy_tag.txt
 
   build-linux-installer:
     environment:
@@ -43,6 +43,9 @@ jobs:
     shell: /bin/bash --login -eo pipefail
 
     steps:
+      - attach_workspace:
+          at: ./artifacts
+
       - checkout
 
       - run:
@@ -77,6 +80,7 @@ jobs:
       - run:
           name: Maven Install Build
           command: |
+            DEPLOY_TAG="$(cat ./artifacts/deploy_tag.txt)"
             java -version
             mvn -version
 
@@ -106,6 +110,9 @@ jobs:
       xcode: 12.0.0
 
     steps:
+      - attach_workspace:
+          at: ./artifacts
+
       - checkout
 
       - run:
@@ -136,6 +143,7 @@ jobs:
       - run:
           name: Maven Install Build
           command: |
+            DEPLOY_TAG="$(cat ./artifacts/deploy_tag.txt)"
             java -version
             mvn -version
 
@@ -162,6 +170,9 @@ jobs:
       shell: powershell.exe
 
     steps:
+      - attach_workspace:
+          at: ./artifacts
+
       - checkout
 
       - run:
@@ -214,6 +225,7 @@ jobs:
       - run:
           name: Maven Install Build
           command: |
+            $env:DEPLOY_TAG = Get-Content artifacts\deploy_tag.txt
             java -version
             mvn -version
 
@@ -243,17 +255,17 @@ jobs:
       - run:
           name: "Publish Release on GitHub"
           command: |
-            CIRCLE_TAG="$(cat ./artifacts/circle_tag.txt)"
-            rm -f ./artifacts/circle_tag.txt
+            DEPLOY_TAG="$(cat ./artifacts/deploy_tag.txt)"
+            rm -f ./artifacts/deploy_tag.txt
             rm -f /root/project/artifacts/project/target/installer/._*
-            echo "CIRCLE_TAG=${CIRCLE_TAG}"
+            echo "DEPLOY_TAG=${DEPLOY_TAG}"
 
             ghr -t "${GITHUB_TOKEN}" \
                 -u "${CIRCLE_PROJECT_USERNAME}" \
                 -r "${CIRCLE_PROJECT_REPONAME}" \
                 -c "${CIRCLE_SHA1}" \
                 -replace \
-                "${CIRCLE_TAG}" \
+                "${DEPLOY_TAG}" \
                 "/root/project/artifacts/project/target/installer/"
 
 
