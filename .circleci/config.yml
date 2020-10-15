@@ -7,19 +7,26 @@ jobs:
   build:
     docker:
       - image: cimg/openjdk:15.0.0
+
     steps:
       - checkout
+
       - run: |
           sudo apt-get update
           echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
           sudo apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
+
       - run: mvn package
+
       - store_test_results:
           path: target/surefire-reports
+
       - store_artifacts:
           path: test-screenshots
+
       - run: |
           echo "$(git tag -l --points-at HEAD)" > ~/circle_tag.txt
+
       - persist_to_workspace:
           root: ~/
           paths:
@@ -249,6 +256,7 @@ jobs:
                 "${CIRCLE_TAG}" \
                 "/root/project/artifacts/project/target/installer/"
 
+
 release-filter: &release-filter
   filters:
     # ignore any commit on any branch by default
@@ -265,7 +273,10 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - build-linux-installer
+      - build-linux-installer:
+          <<: *release-filter
+          requires:
+            - build
       - build-windows-installer:
           <<: *release-filter
           requires:
@@ -279,4 +290,5 @@ workflows:
           requires:
             - build-windows-installer
             - build-mac-installer
+            - build-linux-installer
 
