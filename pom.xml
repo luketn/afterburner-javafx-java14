@@ -296,16 +296,16 @@
                                             <arg line="--type deb"/>
                                             <arg line="--input ./target/release-directory"/>
                                             <arg line="--main-jar &quot;${project.build.finalName}.jar&quot;"/>
-<!--                                            <arg line="&#45;&#45;dest ./target/installer"/>-->
-<!--                                            <arg line="&#45;&#45;module-path ./target/release-directory/lib"/>-->
-<!--                                            <arg line="&#45;&#45;add-modules javafx.controls,javafx.fxml"/>-->
-<!--                                            <arg line="&#45;&#45;java-options &quot;&#45;&#45;enable-preview&quot;"/>-->
-<!--                                            <arg line="&#45;&#45;icon ./assets/app.ico"/>-->
-<!--                                            <arg line="&#45;&#45;name &quot;${project.build.finalName}&quot;"/>-->
-<!--                                            <arg line="&#45;&#45;app-version &quot;${project.version}.${env.CIRCLE_BUILD_NUM}&quot;"/>-->
-<!--                                            <arg line="&#45;&#45;copyright &quot;2020 Luke Thompson&quot;"/>-->
-<!--                                            <arg line="&#45;&#45;vendor &quot;Luke Thompson&quot;"/>-->
-<!--                                            <arg line="&#45;&#45;verbose"/>-->
+                                            <arg line="--dest ./target/installer"/>
+                                            <arg line="--module-path ./target/release-directory/lib"/>
+                                            <arg line="--add-modules javafx.controls,javafx.fxml"/>
+                                            <arg line="--java-options &quot;--enable-preview&quot;"/>
+                                            <arg line="--icon ./assets/app.ico"/>
+                                            <arg line="--name &quot;${project.build.finalName}&quot;"/>
+                                            <arg line="--app-version &quot;${project.version}.${env.CIRCLE_BUILD_NUM}&quot;"/>
+                                            <arg line="--copyright &quot;2020 Luke Thompson&quot;"/>
+                                            <arg line="--vendor &quot;Luke Thompson&quot;"/>
+                                            <arg line="--verbose"/>
                                         </exec>
                                     </target>
                                 </configuration>
