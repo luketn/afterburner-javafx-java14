@@ -277,10 +277,10 @@ workflows:
           <<: *release-filter
           requires:
             - build
-      - build-windows-installer:
-          <<: *release-filter
-          requires:
-            - build
+#      - build-windows-installer:
+#          <<: *release-filter
+#          requires:
+#            - build
       - build-mac-installer:
           <<: *release-filter
           requires:
@@ -288,7 +288,7 @@ workflows:
       - publish-github-release:
           <<: *release-filter
           requires:
-            - build-windows-installer
+#            - build-windows-installer
             - build-mac-installer
             - build-linux-installer
 
