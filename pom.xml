@@ -293,13 +293,13 @@
                                 <configuration>
                                     <target>
                                         <exec executable="jpackage" failonerror="true">
-                                            <arg line="--type rpm"/>
-                                            <arg line="--dest ./target/installer"/>
+                                            <arg line="--type deb"/>
                                             <arg line="--input ./target/release-directory"/>
                                             <arg line="--main-jar &quot;${project.build.finalName}.jar&quot;"/>
-                                            <arg line="--module-path ./target/release-directory/lib"/>
-                                            <arg line="--add-modules javafx.controls,javafx.fxml"/>
-                                            <arg line="--java-options &quot;--enable-preview&quot;"/>
+<!--                                            <arg line="&#45;&#45;dest ./target/installer"/>-->
+<!--                                            <arg line="&#45;&#45;module-path ./target/release-directory/lib"/>-->
+<!--                                            <arg line="&#45;&#45;add-modules javafx.controls,javafx.fxml"/>-->
+<!--                                            <arg line="&#45;&#45;java-options &quot;&#45;&#45;enable-preview&quot;"/>-->
 <!--                                            <arg line="&#45;&#45;icon ./assets/app.ico"/>-->
 <!--                                            <arg line="&#45;&#45;name &quot;${project.build.finalName}&quot;"/>-->
 <!--                                            <arg line="&#45;&#45;app-version &quot;${project.version}.${env.CIRCLE_BUILD_NUM}&quot;"/>-->
