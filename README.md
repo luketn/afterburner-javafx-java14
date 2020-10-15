@@ -1,4 +1,12 @@
-# Sample Project Adapted from FireBurner
+# JavaFX Template App!
+
+[![CircleCI](https://circleci.com/gh/luketn/javafx-template.svg?style=svg)](https://circleci.com/gh/luketn/javafx-template)
+
+A template for a multi-platform JavaFX app, which builds for all three platforms:
+- Windows (MSI)
+- Mac (PKG)
+- Linux (DEB)
+
 
 Generated using a maven archetype:
 
