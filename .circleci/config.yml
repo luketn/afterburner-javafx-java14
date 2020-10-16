@@ -44,7 +44,7 @@ jobs:
 
     steps:
       - attach_workspace:
-          at: ./artifacts
+          at: /tmp/workspace
 
       - checkout
 
@@ -80,7 +80,7 @@ jobs:
       - run:
           name: Maven Install Build
           command: |
-            DEPLOY_TAG="$(cat ./artifacts/deploy_tag.txt)"
+            DEPLOY_TAG="$(cat /tmp/workspace/deploy_tag.txt)"
             java -version
             mvn -version
 
@@ -111,7 +111,7 @@ jobs:
 
     steps:
       - attach_workspace:
-          at: ./artifacts
+          at: /tmp/workspace
 
       - checkout
 
@@ -143,7 +143,7 @@ jobs:
       - run:
           name: Maven Install Build
           command: |
-            DEPLOY_TAG="$(cat ./artifacts/deploy_tag.txt)"
+            DEPLOY_TAG="$(cat /tmp/workspace/deploy_tag.txt)"
             java -version
             mvn -version
 
@@ -171,7 +171,7 @@ jobs:
 
     steps:
       - attach_workspace:
-          at: ./artifacts
+          at: c:\workspace
 
       - checkout
 
@@ -225,7 +225,7 @@ jobs:
       - run:
           name: Maven Install Build
           command: |
-            $env:DEPLOY_TAG = Get-Content artifacts\deploy_tag.txt
+            $env:DEPLOY_TAG = Get-Content c:\workspace\deploy_tag.txt
             java -version
             mvn -version
 
