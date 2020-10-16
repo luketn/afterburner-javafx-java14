@@ -30,6 +30,7 @@
         <jpackage-modules>javafx.controls,javafx.fxml</jpackage-modules>
         <jpackage-copyright>2020 Luke Thompson</jpackage-copyright>
         <jpackage-vendor>Luke Thompson</jpackage-vendor>
+        <jpackage-app-version>${env.DEPLOY_TAG}</jpackage-app-version>
     </properties>
 
     <dependencies>
@@ -233,7 +234,7 @@
                                             <arg line="--java-options &quot;--enable-preview&quot;"/>
                                             <arg line="--icon ./assets/app.icns"/>
                                             <arg line="--name &quot;${project.build.finalName}&quot;"/>
-                                            <arg line="--app-version &quot;${project.version}.${env.DEPLOY_TAG}&quot;"/>
+                                            <arg line="--app-version &quot;${jpackage-app-version}&quot;"/>
                                             <arg line="--copyright &quot;${jpackage-copyright}&quot;"/>
                                             <arg line="--vendor &quot;${jpackage-vendor}&quot;"/>
                                             <arg line="--verbose"/>
@@ -293,7 +294,7 @@
                                             <arg line="--java-options &quot;--enable-preview&quot;"/>
                                             <arg line="--icon ./assets/app.ico"/>
                                             <arg line="--name &quot;${project.build.finalName}&quot;"/>
-                                            <arg line="--app-version &quot;${project.version}.${env.DEPLOY_TAG}&quot;"/>
+                                            <arg line="--app-version &quot;${jpackage-app-version}&quot;"/>
                                             <arg line="--copyright &quot;${jpackage-copyright}&quot;"/>
                                             <arg line="--vendor &quot;${jpackage-vendor}&quot;"/>
                                             <arg line="--verbose"/>
@@ -346,7 +347,7 @@
                                             <arg line="--java-options &quot;--enable-preview&quot;"/>
                                             <arg line="--icon ./assets/app.ico"/>
                                             <arg line="--name &quot;${project.build.finalName}&quot;"/>
-                                            <arg line="--app-version &quot;${project.version}.${env.DEPLOY_TAG}&quot;"/>
+                                            <arg line="--app-version &quot;${jpackage-app-version}&quot;"/>
                                             <arg line="--copyright &quot;${jpackage-copyright}&quot;"/>
                                             <arg line="--vendor &quot;${jpackage-vendor}&quot;"/>
                                             <arg line="--verbose"/>
@@ -370,7 +371,7 @@
                 </property>
             </activation>
             <properties>
-                <env.DEPLOY_TAG>0</env.DEPLOY_TAG>
+                <env.DEPLOY_TAG>0.0.0</env.DEPLOY_TAG>
             </properties>
         </profile>
     </profiles>

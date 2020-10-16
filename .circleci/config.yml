@@ -80,7 +80,7 @@ jobs:
       - run:
           name: Maven Install Build
           command: |
-            DEPLOY_TAG="$(cat /tmp/workspace/deploy_tag.txt)"
+            export DEPLOY_TAG="$(cat /tmp/workspace/deploy_tag.txt)"
             java -version
             mvn -version
 
