@@ -22,7 +22,8 @@ jobs:
           path: target/surefire-reports
 
       - store_artifacts:
-          path: test-screenshots
+          path: target/test-screenshots
+          destination: test-screenshots
 
       - run: |
           echo "$(git tag -l --points-at HEAD)" > ~/deploy_tag.txt
@@ -90,10 +91,11 @@ jobs:
           path: target/surefire-reports
 
       - store_artifacts:
-          path: test-screenshots
+          path: target/test-screenshots
+          destination: test-screenshots
 
       - store_artifacts:
-          path: ./target/installer
+          path: target/installer
           destination: installer
 
       - persist_to_workspace:
@@ -153,10 +155,11 @@ jobs:
           path: target/surefire-reports
 
       - store_artifacts:
-          path: test-screenshots
+          path: target/test-screenshots
+          destination: test-screenshots
 
       - store_artifacts:
-          path: ./target/installer
+          path: target/installer
           destination: installer
 
       - persist_to_workspace:
@@ -235,10 +238,11 @@ jobs:
           path: target/surefire-reports
 
       - store_artifacts:
-          path: test-screenshots
+          path: target/test-screenshots
+          destination: test-screenshots
 
       - store_artifacts:
-          path: ./target/installer
+          path: target/installer
           destination: installer
 
       - persist_to_workspace:

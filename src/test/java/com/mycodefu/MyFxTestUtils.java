@@ -25,7 +25,7 @@ public class MyFxTestUtils {
         String className = getSimpleClassName(stackTraceElement);
         String methodName = stackTraceElement.getMethodName();
         return () -> {
-            Path path = Paths.get("test-screenshots", className, methodName, String.format("%d.png", getScreenshotNumber(methodName)));
+            Path path = Paths.get("target","test-screenshots", className, methodName, String.format("%d.png", getScreenshotNumber(methodName)));
             try {
                 Files.createDirectories(path.getParent());
             } catch (IOException e) {
