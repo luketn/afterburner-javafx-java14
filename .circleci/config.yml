@@ -276,7 +276,7 @@ release-filter: &release-filter
       ignore: /.*/
     # only act on version tags
     tags:
-      only: /^v\d+\.\d+\.\d+$/
+      only: /^\d+\.\d+\.\d+$/
 
 workflows:
   build:
