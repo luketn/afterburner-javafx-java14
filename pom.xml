@@ -240,7 +240,6 @@
                         <version>3.0.0-M5</version>
                         <configuration>
                             <argLine>${test-argline}</argLine>
-                            <useModulePath>false</useModulePath>
                         </configuration>
                     </plugin>
                     <plugin>
