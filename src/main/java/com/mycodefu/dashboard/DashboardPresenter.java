@@ -86,13 +86,23 @@ public class DashboardPresenter implements Initializable {
             final int blue = random.nextInt(255);
 
             LightView view = new LightView(red, green, blue);
+            view.getViewAsync(lightsBox.getChildren()::add);
+            lightCounter.incrementAndGet();
+        }
+        if (lightCounter.get() > 2048) {
+            Platform.runLater(() -> {
+                int counterBefore = lightCounter.get();
+                int remove = 0;
+                if (counterBefore > 2048) {
+                    remove = lightCounter.get() - 2048;
+                    if (remove > 0) {
+                        lightsBox.getChildren().remove(0, remove);
+                        lightCounter.addAndGet(-remove);
+                    }
+                }
 
-            Parent parent = view.getView();
-            lightsBox.getChildren().add(parent);
-
-            if (lightCounter.incrementAndGet() > 2048) {
-                lightsBox.getChildren().remove(0);
-            }
+                System.out.printf("Removed %d. Count was %d, now %d.\n", remove, counterBefore, lightCounter.get());
+            });
         }
     }
 
