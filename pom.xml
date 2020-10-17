@@ -5,32 +5,29 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycodefu</groupId>
     <artifactId>javafx-template</artifactId>
-    <version>1</version>
-    <packaging>jar</packaging>
     <name>javafx-template</name>
     <url>https://mycodefu.com</url>
+    <version>1</version>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>15</java.version>
         <javafx.version>15</javafx.version>
-        <controlsfx.version>11.0.2</controlsfx.version>
 
         <main.class>com.mycodefu.App</main.class>
+        <jpackage-modules>javafx.controls,javafx.fxml</jpackage-modules>
+        <jpackage-copyright>2020 Luke Thompson</jpackage-copyright>
+        <jpackage-vendor>Luke Thompson</jpackage-vendor>
+        <jpackage-app-version>${env.DEPLOY_TAG}</jpackage-app-version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <test-argline>
-            --add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls
             --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
             --add-exports javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
             --add-opens java.base/java.lang=ALL-UNNAMED
             --enable-preview
         </test-argline>
-
-        <jpackage-modules>javafx.controls,javafx.fxml</jpackage-modules>
-        <jpackage-copyright>2020 Luke Thompson</jpackage-copyright>
-        <jpackage-vendor>Luke Thompson</jpackage-vendor>
-        <jpackage-app-version>${env.DEPLOY_TAG}</jpackage-app-version>
     </properties>
 
     <dependencies>
@@ -48,11 +45,6 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
             <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>${controlsfx.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.inject</groupId>
@@ -109,6 +101,12 @@
             <artifactId>openjfx-monocle</artifactId>
             <version>jdk-12.0.1+2</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

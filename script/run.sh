@@ -6,8 +6,7 @@ LANGUAGE=en
 
 java  -Duser.country="${COUNTRY}" -Duser.language=${LANGUAGE} \
       --enable-preview \
-      --add-modules javafx.controls,javafx.fxml,org.controlsfx.controls \
+      --add-modules javafx.controls,javafx.fxml \
       --module-path ./lib \
-      --add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls \
       -jar javafx-template.jar
 

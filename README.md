@@ -7,24 +7,38 @@ A template for a multi-platform JavaFX app, which builds for all three platforms
 - Mac (PKG)
 - Linux (DEB)
 
+## Get Started!
 
-Generated using a maven archetype:
+1. Update the details for your project in the POM:
 
 ```
-mvn archetype:generate -Dfilter=com.airhacks:igniter
+<groupId>com.mycodefu</groupId>
+<artifactId>javafx-template</artifactId>
+<name>javafx-template</name>
+<url>https://mycodefu.com</url>
 ```
+and
+```
+<main.class>com.mycodefu.App</main.class>
+<jpackage-modules>javafx.controls,javafx.fxml</jpackage-modules>
+<jpackage-copyright>2020 Luke Thompson</jpackage-copyright>
+<jpackage-vendor>Luke Thompson</jpackage-vendor>
+```
+
+2. Go to CircleCI, Setup the project and add the following Environment Variable:
+```
+GITHUB_TOKEN=xxx4333
+```
+
+3. Publish your first version. Go to a terminal in the ./scripts folder and run:
+
+```
+./release 1.0.0
+```
+
+You should now have a new release in GitHub with a Linux, Windows and Windows installer ready to go.
+
+
+##### The injector used in the project is derived from an unmaintained library:
 See: [http://afterburner.adam-bien.com](http://afterburner.adam-bien.com)
-
-Changes from the igniter archetype:
-* Updated to Java 15. The Afterburner framework was built for Java 8.
-  * Remove the PostConstruct annotation from the injected class. 
-* Copied the 3 classes in from the AfterBurner library, and removed the Java 8 specific annotations.
-* Added a module-info.java for the javafx modules.
-
-### IntelliJ Config
-Use JDK 15, with this vm option:
-```
---add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls
-```
-...
 
