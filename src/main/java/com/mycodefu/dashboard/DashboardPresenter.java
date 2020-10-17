@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -83,10 +84,14 @@ public class DashboardPresenter implements Initializable {
             final int red = random.nextInt(255);
             final int green = random.nextInt(255);
             final int blue = random.nextInt(255);
+
             LightView view = new LightView(red, green, blue);
-            view.getViewAsync(lightsBox.getChildren()::add);
+
+            Parent parent = view.getView();
+            lightsBox.getChildren().add(parent);
+
             if (lightCounter.incrementAndGet() > 2048) {
-                Platform.runLater(() -> lightsBox.getChildren().remove(0));
+                lightsBox.getChildren().remove(0);
             }
         }
     }
