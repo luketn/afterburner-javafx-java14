@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/luketn/javafx-template.svg?style=svg)](https://circleci.com/gh/luketn/javafx-template)
 
-A template for a multi-platform JavaFX app, which builds for all three platforms:
+A template for a multi-platform JavaFX app, which builds for all three major desktop platforms:
 - Windows (MSI)
 - Mac (PKG)
 - Linux (DEB)
@@ -39,6 +39,6 @@ GITHUB_TOKEN=xxx4333
 You should now have a new release in GitHub with a Linux, Windows and Windows installer ready to go.
 
 
-##### The injector used in the project is derived from an unmaintained library:
-See: [http://afterburner.adam-bien.com](http://afterburner.adam-bien.com)
+##### The injector used in the project is derived from afterburner.fx - an excellent, but now unmaintained, library:
+See: [https://github.com/AdamBien/afterburner.fx](https://github.com/AdamBien/afterburner.fx)
 
